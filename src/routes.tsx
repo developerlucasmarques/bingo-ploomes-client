@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/";
 import Bingo from "./pages/Bingo";
+import Join from "./pages/join";
 import Create from "./pages/Create";
 
 const AppRoutes = () => {
@@ -8,8 +9,9 @@ const AppRoutes = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/Bingo" element={<Bingo />}></Route>
-        <Route path="/Create" element={<Create />}></Route>
+        <Route path="/Bingo/:nickname" element={<Bingo />}></Route>
+        <Route path="/Join" element={<Join />}></Route>
+        <Route path="/create" element={<Create />}></Route>
       </Routes>
     </Router>
   );
