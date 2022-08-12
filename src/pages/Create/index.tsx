@@ -1,6 +1,5 @@
-import React from "react";
 import "./index.css";
-import logo from "../../assets/imgs/logo.png";
+import bola from "../../assets/img/bola.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swall from "sweetalert";
@@ -27,7 +26,7 @@ const Create = () => {
       swall({
         icon: "error",
         title: "voce adicionou muito tempo, o máximo é 10",
-        timer: 50000,
+        timer: 3000,
       });
       return;
     }
@@ -35,7 +34,7 @@ const Create = () => {
       swall({
         icon: "error",
         title: "voce adicionou muitas cartelas, o máximo é 3",
-        timer: 50000,
+        timer: 3000,
       });
 
       return;
@@ -45,7 +44,7 @@ const Create = () => {
       swall({
         icon: "error",
         title: "adicione um tempo maior que 0",
-        timer: 50000,
+        timer: 3000,
       });
       return;
     }
@@ -53,7 +52,7 @@ const Create = () => {
       swall({
         icon: "error",
         title: "adicione um numero de cartelas maior que 0",
-        timer: 50000,
+        timer: 3000,
       });
       return;
     }
@@ -62,7 +61,7 @@ const Create = () => {
       swall({
         icon: "error",
         title: "adicione um nickname",
-        timer: 50000,
+        timer: 3000,
       });
       return;
     }
@@ -70,23 +69,24 @@ const Create = () => {
       swall({
         icon: "error",
         title: "adicione um nome para a sala",
-        timer: 50000,
+        timer: 3000,
       });
       return;
     }
     console.log(values);
+    navigate("/Bingo");
   };
 
   return (
     <>
       <body>
-        <div>
+        <div className="page1">
           <div className="all">
             <h1>
               <strong> Bingão do G5 </strong>{" "}
             </h1>
 
-            <img src={logo} alt="logo" />
+            <img src={bola} alt="logo" />
             <form onSubmit={joinSession}>
               <input
                 className="input-text"
@@ -102,15 +102,15 @@ const Create = () => {
                 placeholder="nome da sala"
                 type="text"
               />
-              <span>
-                <h2>Tempo</h2>
+              <span className="input-slide">
+                <h2 className="h2">Tempo</h2>
                 <input
                   onChange={handleChangeValues}
                   name="timmer"
                   className="slide"
                   type="number"
                 />
-                <h2>Cartelas</h2>
+                <h2 className="h2">Cartelas</h2>
                 <input
                   onChange={handleChangeValues}
                   name="cards"
@@ -119,13 +119,12 @@ const Create = () => {
                 />
               </span>
 
-              <button type="submit">
+              <button className="button-1" type="submit">
                 <h2>Criar</h2>
               </button>
               <span className="buttons">
                 <button type="button" className="help">
-                  {" "}
-                  ?{" "}
+                  ?
                 </button>
               </span>
             </form>
