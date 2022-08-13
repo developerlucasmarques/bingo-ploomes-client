@@ -21,29 +21,22 @@ const Create = () => {
 
   let navigate = useNavigate();
 
-  // const handleChangeValues = (event: any) => {
-  //   setvalues((values) => ({
-  //     ...values,
-  //     [event.target.name]: event.target.value,
-  //   }));
-  // };
-
-  const handlechangeValues = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.name);
-    console.log(event.target.value);
-
-    setvalues({
+  const handlechangeValues = (event: any) => {
+    setvalues((values) => ({
       ...values,
-      nickname: event.target.value,
-      name: event.target.value,
-      ballTime: +event.target.value,
-      userCards: +event.target.value,
-    });
+      [event.target.name]: event.target.value,
+    }));
+  };
+  const handlechangeValuesNumber = (event: any) => {
+    setvalues((values) => ({
+      ...values,
+      [event.target.name]: +event.target.value,
+    }));
   };
 
   const joinSession = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-
+    console.log(values);
     if (values.ballTime > 10) {
       swall({
         icon: "error",
@@ -94,8 +87,8 @@ const Create = () => {
       });
       return;
     }
-
-    const response = await createRoomService.createRoom(values);
+    console.log(values);
+    //const response = await createRoomService.createRoom(values);
     //navigate(`/Bingo/${values.room}`);
   };
 
@@ -127,14 +120,14 @@ const Create = () => {
               <span className="input-slide">
                 <h2 className="h2">Tempo</h2>
                 <input
-                  onChange={handlechangeValues}
+                  onChange={handlechangeValuesNumber}
                   name="ballTime"
                   className="slide"
                   type="number"
                 />
                 <h2 className="h2">Cartelas</h2>
                 <input
-                  onChange={handlechangeValues}
+                  onChange={handlechangeValuesNumber}
                   name="userCards"
                   className="slide"
                   type="number"
