@@ -3,7 +3,7 @@ import bola from "../../assets/img/bola.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swall from "sweetalert";
-import { createRoomService } from "../../services/bingoservice";
+import { createRoomService } from "../../services/bingoService";
 
 interface create {
   nickname: string;
