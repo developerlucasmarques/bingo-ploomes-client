@@ -15,4 +15,22 @@ const createRoomService = {
       .catch((error: any) => console.log(error.message)),
 };
 
-export { createRoomService };
+const authRoomService = {
+  auth: async (userid: any) =>
+    api
+      .post("/auth", userid)
+      .then((response: any) => response)
+      .catch((error: any) => console.log(error.message)),
+};
+
+const getRoom = {
+  singleRoom: async () =>
+    api
+      .get("/room/single")
+      .then((response: any) => {
+        return response;
+      })
+      .catch((error: any) => console.log(error)),
+};
+
+export { createRoomService, authRoomService, getRoom };

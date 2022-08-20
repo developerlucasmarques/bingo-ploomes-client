@@ -3,7 +3,10 @@ import bola from "../../assets/img/bola.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swall from "sweetalert";
-import { createRoomService } from "../../services/bingoService";
+import {
+  authRoomService,
+  createRoomService,
+} from "../../services/bingoService";
 
 interface create {
   nickname: string;
@@ -36,7 +39,7 @@ const Create = () => {
 
   const joinSession = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-    console.log(values);
+
     if (values.ballTime > 10) {
       swall({
         icon: "error",
@@ -87,9 +90,21 @@ const Create = () => {
       });
       return;
     }
-    console.log(values);
-    //const response = await createRoomService.createRoom(values);
-    //navigate(`/Bingo/${values.room}`);
+    const response = await createRoomService.createRoom(values);
+    const userid = response.data.user.id;
+
+    localStorage.setItem("userId", userid);
+
+    const objtoken = {
+      userId: userid,
+    };
+    const responsetoken = await authRoomService.auth(objtoken);
+
+    const tokenuser = responsetoken.data.token;
+
+    localStorage.setItem("jwtToken", tokenuser);
+
+    navigate(`/Bingo/${values.nickname}`);
   };
 
   return (
