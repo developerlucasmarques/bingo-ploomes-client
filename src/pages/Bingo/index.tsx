@@ -1,38 +1,39 @@
-import React from "react";
-import "./index.css";
-import { useParams } from "react-router-dom";
-import bola from "../../assets/img/bola.png";
-import { useState, useEffect } from "react";
-import { getRoom } from "../../services/bingoService";
+import React from 'react';
+import './index.css';
+import { useParams } from 'react-router-dom';
+import bola from '../../assets/img/bola.png';
+import { useState, useEffect } from 'react';
+import { getRoom } from '../../services/bingoService';
+import { GeneratedCard } from './types/generated-card.type';
 
 const Bingo = () => {
   let { nickname } = useParams();
 
-  const [style1, setStyle1] = useState("bingo-box-card-number");
-  const [style2, setStyle2] = useState("bingo-box-card-number");
-  const [style3, setStyle3] = useState("bingo-box-card-number");
-  const [style4, setStyle4] = useState("bingo-box-card-number");
-  const [style5, setStyle5] = useState("bingo-box-card-number");
-  const [style6, setStyle6] = useState("bingo-box-card-number");
-  const [style7, setStyle7] = useState("bingo-box-card-number");
-  const [style8, setStyle8] = useState("bingo-box-card-number");
-  const [style9, setStyle9] = useState("bingo-box-card-number");
-  const [style10, setStyle10] = useState("bingo-box-card-number");
-  const [style11, setStyle11] = useState("bingo-box-card-number");
-  const [style12, setStyle12] = useState("bingo-box-card-number");
-  const [style13, setStyle13] = useState("bingo-box-card-number");
-  const [style14, setStyle14] = useState("bingo-box-card-number");
-  const [style15, setStyle15] = useState("bingo-box-card-number");
-  const [style16, setStyle16] = useState("bingo-box-card-number");
-  const [style17, setStyle17] = useState("bingo-box-card-number");
-  const [style18, setStyle18] = useState("bingo-box-card-number");
-  const [style19, setStyle19] = useState("bingo-box-card-number");
-  const [style20, setStyle20] = useState("bingo-box-card-number");
-  const [style21, setStyle21] = useState("bingo-box-card-number");
-  const [style22, setStyle22] = useState("bingo-box-card-number");
-  const [style23, setStyle23] = useState("bingo-box-card-number");
-  const [style24, setStyle24] = useState("bingo-box-card-number");
-  const [style25, setStyle25] = useState("bingo-box-card-number");
+  const [style1, setStyle1] = useState('bingo-box-card-number');
+  const [style2, setStyle2] = useState('bingo-box-card-number');
+  const [style3, setStyle3] = useState('bingo-box-card-number');
+  const [style4, setStyle4] = useState('bingo-box-card-number');
+  const [style5, setStyle5] = useState('bingo-box-card-number');
+  const [style6, setStyle6] = useState('bingo-box-card-number');
+  const [style7, setStyle7] = useState('bingo-box-card-number');
+  const [style8, setStyle8] = useState('bingo-box-card-number');
+  const [style9, setStyle9] = useState('bingo-box-card-number');
+  const [style10, setStyle10] = useState('bingo-box-card-number');
+  const [style11, setStyle11] = useState('bingo-box-card-number');
+  const [style12, setStyle12] = useState('bingo-box-card-number');
+  const [style13, setStyle13] = useState('bingo-box-card-number');
+  const [style14, setStyle14] = useState('bingo-box-card-number');
+  const [style15, setStyle15] = useState('bingo-box-card-number');
+  const [style16, setStyle16] = useState('bingo-box-card-number');
+  const [style17, setStyle17] = useState('bingo-box-card-number');
+  const [style18, setStyle18] = useState('bingo-box-card-number');
+  const [style19, setStyle19] = useState('bingo-box-card-number');
+  const [style20, setStyle20] = useState('bingo-box-card-number');
+  const [style21, setStyle21] = useState('bingo-box-card-number');
+  const [style22, setStyle22] = useState('bingo-box-card-number');
+  const [style23, setStyle23] = useState('bingo-box-card-number');
+  const [style24, setStyle24] = useState('bingo-box-card-number');
+  const [style25, setStyle25] = useState('bingo-box-card-number');
 
   // const test = () =>{
   //   if(style == "bingo-box-card-number"){
@@ -43,6 +44,7 @@ const Bingo = () => {
   // }
   useEffect(() => {
     getAllDetails();
+    handleSetCards();
   }, []);
 
   const [Nickame, setNickname] = useState();
@@ -52,6 +54,7 @@ const Bingo = () => {
   const [CardN, SetCardN] = useState([]);
   const [CardG, SetCardG] = useState([]);
   const [CardO, SetCardO] = useState([]);
+  const [Cards, SetCards] = useState<GeneratedCard[]>([]);
 
   const getAllDetails = async () => {
     const getroom = await getRoom.singleRoom();
@@ -68,6 +71,17 @@ const Bingo = () => {
     // });
 
     // console.log(Teste, "olaaaaa sou eu ");
+  };
+
+  const handleSetCards = async () => {
+    const room = await getRoom.singleRoom();
+    const cards: GeneratedCard[] = room.data.users[0].user.cards.map(
+      (element: any) => element.numbers
+    );
+
+    SetCards(cards);
+    console.log(cards);
+    console.log(Cards);
   };
 
   return (
@@ -192,7 +206,7 @@ const Bingo = () => {
               <div className="bingo-before-balls">
                 <div className="bingo-container-beforeballs">
                   <span className="bingo-beforeball">
-                    <img className="bingo-ballimg" src={bola} alt="" />{" "}
+                    <img className="bingo-ballimg" src={bola} alt="" />{' '}
                   </span>
                   <span className="bingo-beforeball">
                     <img className="bingo-ballimg" src={bola} alt="" />
@@ -243,284 +257,281 @@ const Bingo = () => {
             </div>
           </div>
           <div className="bingo-cards">
-            <span className="bingo-card">
-              <table className="bingo-table-all">
-                <tr className="bingo-box-card-number-tr">
-                  <th className="bingo-th">B</th>
-                  <th className="bingo-th">I</th>
-                  <th className="bingo-th">N</th>
-                  <th className="bingo-th">G</th>
-                  <th className="bingo-th">O</th>
-                </tr>
-                <tr className="bingo-box-card-number-tr">
-                  {/* {Card.map<React.ReactNode>(
-                    (numero: number, index: number) => {
-                      return ( */}
-                  <td
-                    onClick={() => {
-                      style1 == "bingo-box-card-number"
-                        ? setStyle1(`bingo-box-card-number-2`)
-                        : setStyle1("bingo-box-card-number");
-                    }}
-                    className={style1}
-                  >
-                    {CardB[0]}
-                  </td>
+            {Cards.map((element: GeneratedCard, index: number) => (
+              <span className="bingo-card">
+                <table className="bingo-table-all">
+                  <tr className="bingo-box-card-number-tr">
+                    <th className="bingo-th">B</th>
+                    <th className="bingo-th">I</th>
+                    <th className="bingo-th">N</th>
+                    <th className="bingo-th">G</th>
+                    <th className="bingo-th">O</th>
+                  </tr>
+                  <tr className="bingo-box-card-number-tr">
+                    <td
+                      onClick={() => {
+                        style1 == 'bingo-box-card-number'
+                          ? setStyle1(`bingo-box-card-number-2`)
+                          : setStyle1('bingo-box-card-number');
+                      }}
+                      className={style1}
+                    >
+                      {element.B[0]}
+                    </td>
 
-                  <td
-                    onClick={() => {
-                      style2 == "bingo-box-card-number"
-                        ? setStyle2("bingo-box-card-number-2")
-                        : setStyle2("bingo-box-card-number");
-                    }}
-                    className={style2}
-                  >
-                    {CardI[0]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style3 == "bingo-box-card-number"
-                        ? setStyle3("bingo-box-card-number-2")
-                        : setStyle3("bingo-box-card-number");
-                    }}
-                    className={style3}
-                  >
-                    {CardN[0]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style4 == "bingo-box-card-number"
-                        ? setStyle4("bingo-box-card-number-2")
-                        : setStyle4("bingo-box-card-number");
-                    }}
-                    className={style4}
-                  >
-                    {CardG[0]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style5 == "bingo-box-card-number"
-                        ? setStyle5("bingo-box-card-number-2")
-                        : setStyle5("bingo-box-card-number");
-                    }}
-                    className={style5}
-                  >
-                    {CardO[0]}
-                  </td>
-                </tr>
-                <tr className="bingo-box-card-number-tr">
-                  <td
-                    onClick={() => {
-                      style6 == "bingo-box-card-number"
-                        ? setStyle6("bingo-box-card-number-2")
-                        : setStyle6("bingo-box-card-number");
-                    }}
-                    className={style6}
-                  >
-                    {CardB[1]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style7 == "bingo-box-card-number"
-                        ? setStyle7("bingo-box-card-number-2")
-                        : setStyle7("bingo-box-card-number");
-                    }}
-                    className={style7}
-                  >
-                    {CardI[1]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style8 == "bingo-box-card-number"
-                        ? setStyle8("bingo-box-card-number-2")
-                        : setStyle8("bingo-box-card-number");
-                    }}
-                    className={style8}
-                  >
-                    {CardN[1]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style9 == "bingo-box-card-number"
-                        ? setStyle9("bingo-box-card-number-2")
-                        : setStyle9("bingo-box-card-number");
-                    }}
-                    className={style9}
-                  >
-                    {CardG[1]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style10 == "bingo-box-card-number"
-                        ? setStyle10("bingo-box-card-number-2")
-                        : setStyle10("bingo-box-card-number");
-                    }}
-                    className={style10}
-                  >
-                    {CardO[1]}
-                  </td>
-                </tr>
-                <tr className="bingo-box-card-number-tr">
-                  <td
-                    onClick={() => {
-                      style11 == "bingo-box-card-number"
-                        ? setStyle11("bingo-box-card-number-2")
-                        : setStyle11("bingo-box-card-number");
-                    }}
-                    className={style11}
-                  >
-                    {CardB[2]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style12 == "bingo-box-card-number"
-                        ? setStyle12("bingo-box-card-number-2")
-                        : setStyle12("bingo-box-card-number");
-                    }}
-                    className={style12}
-                  >
-                    {CardI[2]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style13 == "bingo-box-card-number"
-                        ? setStyle13("bingo-box-card-number-2")
-                        : setStyle13("bingo-box-card-number");
-                    }}
-                    className={style13}
-                  >
-                    {CardN[2]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style14 == "bingo-box-card-number"
-                        ? setStyle14("bingo-box-card-number-2")
-                        : setStyle14("bingo-box-card-number");
-                    }}
-                    className={style14}
-                  >
-                    {CardG[2]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style15 == "bingo-box-card-number"
-                        ? setStyle15("bingo-box-card-number-2")
-                        : setStyle15("bingo-box-card-number");
-                    }}
-                    className={style15}
-                  >
-                    {CardO[2]}
-                  </td>
-                </tr>
-                <tr className="bingo-box-card-number-tr">
-                  <td
-                    onClick={() => {
-                      style16 == "bingo-box-card-number"
-                        ? setStyle16("bingo-box-card-number-2")
-                        : setStyle16("bingo-box-card-number");
-                    }}
-                    className={style16}
-                  >
-                    {CardB[3]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style17 == "bingo-box-card-number"
-                        ? setStyle17("bingo-box-card-number-2")
-                        : setStyle17("bingo-box-card-number");
-                    }}
-                    className={style17}
-                  >
-                    {CardI[3]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style18 == "bingo-box-card-number"
-                        ? setStyle18("bingo-box-card-number-2")
-                        : setStyle18("bingo-box-card-number");
-                    }}
-                    className={style18}
-                  >
-                    {CardN[3]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style19 == "bingo-box-card-number"
-                        ? setStyle19("bingo-box-card-number-2")
-                        : setStyle19("bingo-box-card-number");
-                    }}
-                    className={style19}
-                  >
-                    {CardG[3]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style20 == "bingo-box-card-number"
-                        ? setStyle20("bingo-box-card-number-2")
-                        : setStyle20("bingo-box-card-number");
-                    }}
-                    className={style20}
-                  >
-                    {CardO[3]}
-                  </td>
-                </tr>
-                <tr className="bingo-box-card-number-tr">
-                  <td
-                    onClick={() => {
-                      style21 == "bingo-box-card-number"
-                        ? setStyle21("bingo-box-card-number-2")
-                        : setStyle21("bingo-box-card-number");
-                    }}
-                    className={style21}
-                  >
-                    {CardB[4]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style22 == "bingo-box-card-number"
-                        ? setStyle22("bingo-box-card-number-2")
-                        : setStyle22("bingo-box-card-number");
-                    }}
-                    className={style22}
-                  >
-                    {CardI[4]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style23 == "bingo-box-card-number"
-                        ? setStyle23("bingo-box-card-number-2")
-                        : setStyle23("bingo-box-card-number");
-                    }}
-                    className={style23}
-                  >
-                    {CardN[4]}
-                  </td>
-                  <td
-                    onClick={() => {
-                      style24 == "bingo-box-card-number"
-                        ? setStyle24("bingo-box-card-number-2")
-                        : setStyle24("bingo-box-card-number");
-                    }}
-                    className={style24}
-                  >
-                    {CardG[4]}
-                  </td>
+                    <td
+                      onClick={() => {
+                        style2 == 'bingo-box-card-number'
+                          ? setStyle2('bingo-box-card-number-2')
+                          : setStyle2('bingo-box-card-number');
+                      }}
+                      className={style2}
+                    >
+                      {element.I[0]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style3 == 'bingo-box-card-number'
+                          ? setStyle3('bingo-box-card-number-2')
+                          : setStyle3('bingo-box-card-number');
+                      }}
+                      className={style3}
+                    >
+                      {element.N[0]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style4 == 'bingo-box-card-number'
+                          ? setStyle4('bingo-box-card-number-2')
+                          : setStyle4('bingo-box-card-number');
+                      }}
+                      className={style4}
+                    >
+                      {element.G[0]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style5 == 'bingo-box-card-number'
+                          ? setStyle5('bingo-box-card-number-2')
+                          : setStyle5('bingo-box-card-number');
+                      }}
+                      className={style5}
+                    >
+                      {element.O[0]}
+                    </td>
+                  </tr>
+                  <tr className="bingo-box-card-number-tr">
+                    <td
+                      onClick={() => {
+                        style6 == 'bingo-box-card-number'
+                          ? setStyle6('bingo-box-card-number-2')
+                          : setStyle6('bingo-box-card-number');
+                      }}
+                      className={style6}
+                    >
+                      {element.B[1]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style7 == 'bingo-box-card-number'
+                          ? setStyle7('bingo-box-card-number-2')
+                          : setStyle7('bingo-box-card-number');
+                      }}
+                      className={style7}
+                    >
+                      {element.I[1]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style8 == 'bingo-box-card-number'
+                          ? setStyle8('bingo-box-card-number-2')
+                          : setStyle8('bingo-box-card-number');
+                      }}
+                      className={style8}
+                    >
+                      {element.N[1]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style9 == 'bingo-box-card-number'
+                          ? setStyle9('bingo-box-card-number-2')
+                          : setStyle9('bingo-box-card-number');
+                      }}
+                      className={style9}
+                    >
+                      {element.G[1]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style10 == 'bingo-box-card-number'
+                          ? setStyle10('bingo-box-card-number-2')
+                          : setStyle10('bingo-box-card-number');
+                      }}
+                      className={style10}
+                    >
+                      {element.O[1]}
+                    </td>
+                  </tr>
+                  <tr className="bingo-box-card-number-tr">
+                    <td
+                      onClick={() => {
+                        style11 == 'bingo-box-card-number'
+                          ? setStyle11('bingo-box-card-number-2')
+                          : setStyle11('bingo-box-card-number');
+                      }}
+                      className={style11}
+                    >
+                      {element.B[2]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style12 == 'bingo-box-card-number'
+                          ? setStyle12('bingo-box-card-number-2')
+                          : setStyle12('bingo-box-card-number');
+                      }}
+                      className={style12}
+                    >
+                      {element.I[2]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style13 == 'bingo-box-card-number'
+                          ? setStyle13('bingo-box-card-number-2')
+                          : setStyle13('bingo-box-card-number');
+                      }}
+                      className={style13}
+                    >
+                      {element.N[2]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style14 == 'bingo-box-card-number'
+                          ? setStyle14('bingo-box-card-number-2')
+                          : setStyle14('bingo-box-card-number');
+                      }}
+                      className={style14}
+                    >
+                      {element.G[2]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style15 == 'bingo-box-card-number'
+                          ? setStyle15('bingo-box-card-number-2')
+                          : setStyle15('bingo-box-card-number');
+                      }}
+                      className={style15}
+                    >
+                      {element.O[2]}
+                    </td>
+                  </tr>
+                  <tr className="bingo-box-card-number-tr">
+                    <td
+                      onClick={() => {
+                        style16 == 'bingo-box-card-number'
+                          ? setStyle16('bingo-box-card-number-2')
+                          : setStyle16('bingo-box-card-number');
+                      }}
+                      className={style16}
+                    >
+                      {element.B[3]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style17 == 'bingo-box-card-number'
+                          ? setStyle17('bingo-box-card-number-2')
+                          : setStyle17('bingo-box-card-number');
+                      }}
+                      className={style17}
+                    >
+                      {element.I[3]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style18 == 'bingo-box-card-number'
+                          ? setStyle18('bingo-box-card-number-2')
+                          : setStyle18('bingo-box-card-number');
+                      }}
+                      className={style18}
+                    >
+                      {element.N[3]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style19 == 'bingo-box-card-number'
+                          ? setStyle19('bingo-box-card-number-2')
+                          : setStyle19('bingo-box-card-number');
+                      }}
+                      className={style19}
+                    >
+                      {element.G[3]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style20 == 'bingo-box-card-number'
+                          ? setStyle20('bingo-box-card-number-2')
+                          : setStyle20('bingo-box-card-number');
+                      }}
+                      className={style20}
+                    >
+                      {element.O[3]}
+                    </td>
+                  </tr>
+                  <tr className="bingo-box-card-number-tr">
+                    <td
+                      onClick={() => {
+                        style21 == 'bingo-box-card-number'
+                          ? setStyle21('bingo-box-card-number-2')
+                          : setStyle21('bingo-box-card-number');
+                      }}
+                      className={style21}
+                    >
+                      {element.B[4]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style22 == 'bingo-box-card-number'
+                          ? setStyle22('bingo-box-card-number-2')
+                          : setStyle22('bingo-box-card-number');
+                      }}
+                      className={style22}
+                    >
+                      {element.I[4]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style23 == 'bingo-box-card-number'
+                          ? setStyle23('bingo-box-card-number-2')
+                          : setStyle23('bingo-box-card-number');
+                      }}
+                      className={style23}
+                    >
+                      {element.N[4]}
+                    </td>
+                    <td
+                      onClick={() => {
+                        style24 == 'bingo-box-card-number'
+                          ? setStyle24('bingo-box-card-number-2')
+                          : setStyle24('bingo-box-card-number');
+                      }}
+                      className={style24}
+                    >
+                      {element.G[4]}
+                    </td>
 
-                  <td
-                    onClick={() => {
-                      style25 == "bingo-box-card-number"
-                        ? setStyle25("bingo-box-card-number-2")
-                        : setStyle25("bingo-box-card-number");
-                    }}
-                    className={style25}
-                  >
-                    {CardO[4]}
-                  </td>
-                </tr>
-              </table>
-            </span>
-            <span className="bingo-card">card1</span>
-            <span className="bingo-card">card1</span>
+                    <td
+                      onClick={() => {
+                        style25 == 'bingo-box-card-number'
+                          ? setStyle25('bingo-box-card-number-2')
+                          : setStyle25('bingo-box-card-number');
+                      }}
+                      className={style25}
+                    >
+                      {element.O[4]}
+                    </td>
+                  </tr>
+                </table>
+              </span>
+            ))}
           </div>
         </div>
       </body>
