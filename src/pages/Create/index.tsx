@@ -1,12 +1,12 @@
-import "./index.css";
-import bola from "../../assets/img/bola.png";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import swall from "sweetalert";
+import './index.css';
+import bola from '../../assets/img/bola.png';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import swall from 'sweetalert';
 import {
   authRoomService,
   createRoomService,
-} from "../../services/bingoService";
+} from '../../services/bingoService';
 
 interface create {
   nickname: string;
@@ -16,8 +16,8 @@ interface create {
 }
 const Create = () => {
   const [values, setvalues] = useState<create>({
-    nickname: "",
-    name: "",
+    nickname: '',
+    name: '',
     ballTime: 0,
     userCards: 0,
   });
@@ -42,50 +42,50 @@ const Create = () => {
 
     if (values.ballTime > 10) {
       swall({
-        icon: "error",
-        title: "voce adicionou muito tempo, o máximo é 10",
+        icon: 'error',
+        title: 'Você adicionou muito tempo, o máximo é 10',
         timer: 3000,
       });
       return;
     }
     if (values.userCards > 3) {
       swall({
-        icon: "error",
-        title: "voce adicionou muitas cartelas, o máximo é 3",
+        icon: 'error',
+        title: 'Você adicionou muitas cartelas, o máximo é 3',
         timer: 3000,
       });
 
       return;
     }
 
-    if (values.ballTime <= 5) {
+    if (values.ballTime < 5) {
       swall({
-        icon: "error",
-        title: "adicione um tempo maior que 5",
+        icon: 'error',
+        title: 'Adicione um tempo maior que 5',
         timer: 3000,
       });
       return;
     }
     if (values.userCards <= 0) {
       swall({
-        icon: "error",
-        title: "adicione um numero de cartelas maior que 0",
+        icon: 'error',
+        title: 'Adicione um numero de cartelas maior que 0',
         timer: 3000,
       });
       return;
     }
-    if (values.nickname == "") {
+    if (values.nickname == '') {
       swall({
-        icon: "error",
-        title: "adicione um nickname",
+        icon: 'error',
+        title: 'Adicione um nickname',
         timer: 3000,
       });
       return;
     }
-    if (values.name == "") {
+    if (values.name == '') {
       swall({
-        icon: "error",
-        title: "adicione um nome para a sala",
+        icon: 'error',
+        title: 'Adicione um nome para a sala',
         timer: 3000,
       });
       return;
@@ -93,7 +93,7 @@ const Create = () => {
     const response = await createRoomService.createRoom(values);
     const userid = response.data.user.id;
 
-    localStorage.setItem("userId", userid);
+    localStorage.setItem('userId', userid);
 
     const objtoken = {
       userId: userid,
@@ -102,7 +102,7 @@ const Create = () => {
 
     const tokenuser = responsetoken.data.token;
 
-    localStorage.setItem("jwtToken", tokenuser);
+    localStorage.setItem('jwtToken', tokenuser);
 
     navigate(`/Bingo/${values.nickname}`);
   };
@@ -124,6 +124,7 @@ const Create = () => {
                 name="nickname"
                 placeholder="nickname"
                 type="text"
+                maxLength={20}
               />
               <input
                 className="input-text"
@@ -131,21 +132,26 @@ const Create = () => {
                 name="name"
                 placeholder="nome da sala"
                 type="text"
+                maxLength={20}
               />
               <span className="input-slide">
-                <h2 className="h2">Tempo</h2>
+                <h2 className="h2">Tempo </h2>
                 <input
                   onChange={handlechangeValuesNumber}
                   name="ballTime"
                   className="slide"
                   type="number"
+                  min={5}
+                  max={10}
                 />
-                <h2 className="h2">Cartelas</h2>
+                <h2 className="h2 card2">Cartelas</h2>
                 <input
                   onChange={handlechangeValuesNumber}
                   name="userCards"
                   className="slide"
                   type="number"
+                  min={1}
+                  max={3}
                 />
               </span>
 
