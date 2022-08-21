@@ -3,6 +3,8 @@
   width: 100vw;
   display: flex;
   flex-direction: row;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .bingo-chat {
@@ -62,7 +64,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  font-size: 0.8rem;
+  font-size: 1rem;
   border-right: 0.5rem;
 }
 
@@ -126,7 +128,7 @@
   color: white;
   display: flex;
   flex-wrap: wrap;
-  font-size: 0.7rem;
+  font-size: 1rem;
   margin-left: 2px;
   margin-right: 2px;
 }
@@ -146,7 +148,10 @@
   height: 100%;
   width: 20%;
   border-radius: 0px;
+  font-size: 1rem;
+  font-weight: bolder;
   border-top: 2px solid black;
+  cursor: pointer;
 }
 
 .bingo-chat-nickname {
@@ -161,6 +166,7 @@
   border-radius: 0px;
   background-color: #383849;
   border-top: 2px solid black;
+  color: #fff;
 }
 
 .bingo-chat-form {
@@ -188,15 +194,18 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  border-top: 3px solid #000;
 }
 
 .bingo-card {
   height: 95%;
   width: 30%;
-  background-color: white;
+  border-radius: 7px;
+  border: 2px solid #777;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 20px #fff;
 }
 
 .bingo-container1 {
@@ -222,7 +231,7 @@
 }
 
 .bingo-oponente-card {
-  height: 70%;
+  height: 64%;
   width: 100%;
   background-color: #383849;
   display: flex;
@@ -244,7 +253,7 @@
 }
 
 .bingo-current-card {
-  height: 90%;
+  height: 75%;
   width: 90%;
   background-color: white;
   margin-right: 0px;
@@ -284,6 +293,7 @@
   width: 100%;
   background-color: #383849;
   border: 2px solid black;
+  border-bottom: none;
 }
 
 .bingo-current-ball {
@@ -449,7 +459,7 @@
   justify-content: center;
 }
 
-.bingo-box-card-number-tr {
+.bingo-box-card-number-letter {
   height: 2rem;
   width: 2rem;
 }
@@ -457,11 +467,6 @@
 .bingo-table-all {
   height: 100%;
   width: 100%;
-}
-
-.bingo-th {
-  font-size: 2rem;
-  font-weight: bolder;
 }
 
 .bingo-box-card-number-2 {
@@ -475,4 +480,61 @@
   font-weight: bolder;
   transition: 0.2s;
   color: #2f2f64;
+}
+
+.bingo-letters {
+  display: flex;
+  width: 100%;
+}
+
+.bingo-letter {
+  height: 40px;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  font-weight: bolder;
+  color: #eee;
+}
+
+.bingo-numbers {
+  display: flex;
+  height: calc(100% - 40px);
+  flex: 1;
+  color: #eee;
+}
+
+.bingo-colum {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 98%;
+  width: 20%;
+  flex-direction: column;
+}
+
+.bingo-colum .number {
+  width: 80%;
+  height: 18%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  border: 2px solid #eee;
+  cursor: pointer;
+  border-radius: 8px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.background-color-number {
+  background-color: #93ec67;
+  color: #383849;
+  border: 2px solid #383849 !important;
 }
