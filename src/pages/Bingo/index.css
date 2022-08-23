@@ -321,12 +321,34 @@
 
 .bingo-button {
   height: 25%;
-  width: 40%;
+  width: 60%;
   font-size: 3rem;
   text-transform: uppercase;
   font-weight: bold;
   color: #212130;
   margin-top: 1px;
+}
+
+.bingo-help {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.bingo-button-help {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+
+  background-color: black;
+  color: white;
+  font-size: 2rem;
+  position: absolute;
+}
+
+.bingo-button-help:hover {
+  background-color: rgb(39, 38, 38);
 }
 
 .bingo-h2-yourcards {

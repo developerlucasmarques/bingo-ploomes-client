@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import bola from '../../assets/img/bola.png';
-import { getRoom } from '../../services/bingoService';
-import './index.css';
-import { GeneratedCard } from './types/generated-card.type';
+import React, { useEffect, useState } from "react";
+import bola from "../../assets/img/bola.png";
+import { getRoom } from "../../services/bingoService";
+import "./index.css";
+import { GeneratedCard } from "./types/generated-card.type";
+import swall from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -30,11 +32,56 @@ const Bingo: React.FC = () => {
   };
 
   const handleBackground = (event: React.SyntheticEvent) => {
-    if (event.currentTarget.className == 'number background-color-number') {
-      event.currentTarget.classList.remove('background-color-number');
+    if (event.currentTarget.className == "number background-color-number") {
+      event.currentTarget.classList.remove("background-color-number");
     } else {
-      event.currentTarget.classList.add('background-color-number');
+      event.currentTarget.classList.add("background-color-number");
     }
+  };
+
+  const modalHelpCreate = () => {};
+
+  const modalPoints = () => {
+    if (1 > 0) {
+      swall({
+        icon: "error",
+        title: "Você não bingou e perdeu 1 ponto",
+        timer: 3000,
+      });
+    } else {
+      swall({
+        icon: "succes",
+        title: "Você bingou e ganhou 1 ponto",
+        timer: 3000,
+      });
+    }
+  };
+
+  const Navigate = useNavigate();
+
+  const nomeWinner = "test";
+
+  const modalWin = () => {
+    swall({
+      icon: "info",
+      title: `${nomeWinner} ganhou o jogo`,
+      text: `${nomeWinner} fez 10 pontos e venceu o jogo, cria uma nova sala ou entre em uma nova para continuar jogando`,
+      timer: 5000,
+    });
+    setTimeout(() => {
+      Navigate("/");
+    }, 5000);
+  };
+
+  const modalHelpBingo = () => {
+    swall({
+      icon: "info",
+      title:"Como Vencer?",
+      text:`Para pontuar, voce deve completar uma fileira na vertical, horizontal ou diagonal de cada tabela
+             
+            Voce deve completar 10 pontos para vencer a partida`,
+      
+    });
   };
 
   return (
@@ -105,9 +152,26 @@ const Bingo: React.FC = () => {
                 <h2>timer</h2>
                 <img className="bingo-currentball-img" src={bola} alt="" />
               </div>
-              <button className="bingo-button" type="button">
+
+              
+              <button onClick={modalWin} className="bingo-button" type="button">
                 Bingo
               </button>
+
+              <div className="bingo-help">
+              
+              <button
+                  onClick={modalHelpBingo}
+                  type="button"
+                  className="bingo-button-help"
+                >
+                  ?
+                </button>
+              </div>
+
+              
+
+              
               <h2 className="bingo-h2-yourcards">your-cards</h2>
             </div>
             <div className="bingo-container3">
@@ -115,7 +179,7 @@ const Bingo: React.FC = () => {
               <div className="bingo-before-balls">
                 <div className="bingo-container-beforeballs">
                   <span className="bingo-beforeball">
-                    <img className="bingo-ballimg" src={bola} alt="" />{' '}
+                    <img className="bingo-ballimg" src={bola} alt="" />{" "}
                   </span>
                   <span className="bingo-beforeball">
                     <img className="bingo-ballimg" src={bola} alt="" />
