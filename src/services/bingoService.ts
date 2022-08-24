@@ -33,4 +33,12 @@ const getRoom = {
       .catch((error: any) => console.log(error)),
 };
 
-export { createRoomService, authRoomService, getRoom };
+const getRoomJoin = {
+  singleRoomJoin: async (values: any) =>
+    api
+      .post("/join", values)
+      .then((response: any) => response)
+      .catch((error: any) => console.log(error.message)),
+};
+
+export { createRoomService, authRoomService, getRoom, getRoomJoin };

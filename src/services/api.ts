@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: "https://bingo-g5-ploomes.onrender.com",
 });
 
 api.interceptors.request.use((config: any) => {
