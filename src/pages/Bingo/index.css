@@ -306,6 +306,31 @@
   justify-content: center;
 }
 
+.bingo-currentball-newBall {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background-color: rgb(147, 236, 103);
+  background: radial-gradient(at top left, #93ec67 20%, rgb(6, 83, 6));
+  box-shadow: 0px 0px 10px 1px rgba(147, 236, 103, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-ball-middle-circus {
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: bold;
+  background: radial-gradient(at left, #fff 50%, rgb(153, 152, 152));
+}
+
 .bingo-h1-board {
   height: 10%;
   width: 100%;
@@ -320,13 +345,29 @@
 }
 
 .bingo-button {
-  height: 25%;
-  width: 40%;
-  font-size: 3rem;
+  height: 20%;
+  width: 35%;
+  font-size: 2.5rem;
   text-transform: uppercase;
   font-weight: bold;
   color: #212130;
   margin-top: 1px;
+  cursor: pointer;
+}
+
+.bingo-button-display-none {
+  display: none;
+}
+
+.start-button {
+  height: 20%;
+  width: 35%;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #212130;
+  margin-top: 1px;
+  cursor: pointer;
 }
 
 .bingo-h2-yourcards {
@@ -537,4 +578,12 @@
   background-color: #93ec67;
   color: #383849;
   border: 2px solid #383849 !important;
+}
+
+.time {
+  font-size: 2rem;
+  font-weight: bolder;
+  color: #ccc;
+  position: absolute;
+  margin-right: 16rem;
 }

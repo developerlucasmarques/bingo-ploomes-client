@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { State } from 'history';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import bola from '../../assets/img/bola.png';
 import { getRoom } from '../../services/bingoService';
+import { useSocket } from './hooks/useSocket';
 import './index.css';
 import { GeneratedCard } from './types/generated-card.type';
+import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
+import { UserWhithSelf } from './types/user-whith-self.type';
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -10,24 +14,73 @@ const Bingo: React.FC = () => {
     handleSetCards();
   }, []);
 
-  const [Nickame, setNickname] = useState();
-  const [Score, setScore] = useState();
+  const socket = useSocket('http://localhost:8001', {
+    reconnectionAttempts: 10,
+    reconnectionDelay: 5000,
+    autoConnect: false,
+  });
+
+  const [Nickame, setNickname] = useState<string | undefined>();
+  const [Score, setScore] = useState<number | undefined>();
   const [Cards, SetCards] = useState<GeneratedCard[]>([]);
+  const [NewBall, setNewBall] = useState<number>();
+  const [UserId, setUserId] = useState<string>();
+  const [RoomId, setRoomId] = useState<string>();
+  const [StartTime, setStartTime] = useState<number>();
+  const [time, setTime] = useState<number>();
+  const intervalRef = useRef<number | undefined>();
+  let startTime = 0;
 
   const getAllDetails = async () => {
-    const getroom = await getRoom.singleRoom();
-    setNickname(getroom.data.users[0].user.nickname);
-    setScore(getroom.data.users[0].user.score);
-  };
+    const response = await getRoom.singleRoom();
+    const room: RoomUsersCards = response.data;
 
-  const handleSetCards = async () => {
-    const room = await getRoom.singleRoom();
-    const cards: GeneratedCard[] = room.data.users[0].user.cards.map(
-      (element: any) => element.numbers
+    const cardsOfUser: GeneratedCard[] = [];
+    for (let user of room.users) {
+      if (user.isSelf) {
+        for (let card of user.cards) {
+          cardsOfUser.push(card.numbers);
+        }
+      }
+    }
+    SetCards(cardsOfUser);
+
+    const user: UserWhithSelf | undefined = room.users.find(
+      (user) => user.isSelf
     );
 
-    SetCards(cards);
+    setNickname(user?.nickname);
+    setScore(user?.score);
+    setUserId(user?.id);
+    setRoomId(room.id);
+    startTime = room.ballTime;
+    setStartTime(room.ballTime);
+
+    socket.emit('create-room-and-user', {
+      roomId: room.id,
+      userId: user?.id,
+    });
   };
+
+  useEffect(() => {
+    socket.connect();
+
+    StartListners();
+
+    newBall();
+  }, [socket]);
+
+  const StartListners = () => {
+    socket.io.on('reconnect', (attempt) => {
+      console.log('Reconnected on attempt: ' + attempt);
+    });
+
+    socket.io.on('reconnect_attempt', (attempt) => {
+      console.log('Reconnection attempt: ' + attempt);
+    });
+  };
+
+  const handleSetCards = async () => {};
 
   const handleBackground = (event: React.SyntheticEvent) => {
     if (event.currentTarget.className == 'number background-color-number') {
@@ -35,6 +88,35 @@ const Bingo: React.FC = () => {
     } else {
       event.currentTarget.classList.add('background-color-number');
     }
+  };
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const startGame = (event: React.SyntheticEvent) => {
+    event.currentTarget.classList.add('bingo-button-display-none');
+    buttonRef.current?.classList.remove('bingo-button-display-none');
+    setTime(StartTime);
+
+    socket.emit('start-game', { roomId: RoomId, userId: UserId });
+  };
+
+  const newBall = () => {
+    let counter = StartTime;
+
+    socket.on('new-ball', (ball) => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        setTime(startTime);
+        counter = startTime;
+      }
+
+      intervalRef.current = setInterval(() => {
+        setTime((time) => Number(time) - 1);
+        Number(counter) - 1;
+      }, 1000);
+
+      setNewBall(ball.ball);
+    });
   };
 
   return (
@@ -102,11 +184,24 @@ const Bingo: React.FC = () => {
             <div className="bingo-container2">
               <h1 className="bingo-h1-currentball">current Ball</h1>
               <div className="bingo-current-ball">
-                <h2>timer</h2>
-                <img className="bingo-currentball-img" src={bola} alt="" />
+                <div className="time">{time}</div>
+                <div className="bingo-currentball-newBall">
+                  <div className="new-ball-middle-circus">{NewBall}</div>
+                </div>
               </div>
-              <button className="bingo-button" type="button">
+              <button
+                ref={buttonRef}
+                className="bingo-button bingo-button-display-none"
+                type="button"
+              >
                 Bingo
+              </button>
+              <button
+                onClick={startGame}
+                className="start-button"
+                type="button"
+              >
+                Começar
               </button>
               <h2 className="bingo-h2-yourcards">your-cards</h2>
             </div>
