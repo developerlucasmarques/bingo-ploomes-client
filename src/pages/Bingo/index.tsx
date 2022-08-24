@@ -101,18 +101,20 @@ const Bingo: React.FC = () => {
   };
 
   const newBall = () => {
-    let counter = StartTime;
-
     socket.on('new-ball', (ball) => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         setTime(startTime);
-        counter = startTime;
+      }
+
+      if (ball.end === true) {
+        clearInterval(intervalRef.current);
+        console.log('fim');
+        return;
       }
 
       intervalRef.current = setInterval(() => {
         setTime((time) => Number(time) - 1);
-        Number(counter) - 1;
       }, 1000);
 
       setNewBall(ball.ball);
