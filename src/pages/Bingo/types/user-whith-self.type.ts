@@ -1,5 +1,4 @@
-import { GeneratedCard } from "./generated-card.type";
-
+import { GeneratedCard } from './generated-card.type';
 
 export type UserWhithSelf = {
   id: string;
@@ -10,6 +9,6 @@ export type UserWhithSelf = {
     {
       id: string;
       numbers: GeneratedCard;
-    },
+    }
   ];
 };
