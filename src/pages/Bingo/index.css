@@ -560,3 +560,59 @@
   color: #383849;
   border: 2px solid #383849 !important;
 }
+
+@media(max-width: 1024px){
+.bingo-button-help {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+
+  background-color: black;
+  color: white;
+  font-size: 1rem;
+  position: absolute;
+  top: 268px;
+}
+}
+
+@media(min-width: 1024px){
+  .bingo-button-help {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+  
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    position: absolute;
+    top: 268px;
+  }
+  }
+
+  @media(min-width: 1440px){
+    .bingo-button-help {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+    
+      background-color: black;
+      color: white;
+      font-size: 1rem;
+      position: absolute;
+      top: 306px;
+    }
+    }
+
+    @media(max-width: 890px){
+      .bingo-button-help {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+      
+        background-color: black;
+        color: white;
+        font-size: 1rem;
+        position: absolute;
+        top: 320px;
+      }
+      }

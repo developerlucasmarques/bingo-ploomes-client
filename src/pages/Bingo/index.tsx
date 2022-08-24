@@ -77,7 +77,7 @@ const Bingo: React.FC = () => {
     swall({
       icon: "info",
       title:"Como Vencer?",
-      text:`Para pontuar, voce deve completar uma fileira na vertical, horizontal ou diagonal de cada tabela
+      text:`Para pontuar, voce deve completar uma fileira na vertical, horizontal ou diagonal em uma das tabelas
              
             Voce deve completar 10 pontos para vencer a partida`,
       
