@@ -121,6 +121,11 @@ const Bingo: React.FC = () => {
     });
   };
 
+  const bingo = () => {
+    clearInterval(intervalRef.current);
+    socket.emit('check-bingo', { roomId: RoomId, userId: UserId });
+  };
+
   return (
     <>
       <body className="bingo-body">
@@ -192,6 +197,7 @@ const Bingo: React.FC = () => {
                 </div>
               </div>
               <button
+                onClick={bingo}
                 ref={buttonRef}
                 className="bingo-button bingo-button-display-none"
                 type="button"
