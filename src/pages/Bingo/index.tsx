@@ -7,6 +7,7 @@ import './index.css';
 import { GeneratedCard } from './types/generated-card.type';
 import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
 import { UserWhithSelf } from './types/user-whith-self.type';
+import { VerifyBingo } from './types/verify-bingo-response.type';
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -68,6 +69,7 @@ const Bingo: React.FC = () => {
     StartListners();
 
     newBall();
+    checkIfUserBingo();
   }, [socket]);
 
   const StartListners = () => {
@@ -124,6 +126,18 @@ const Bingo: React.FC = () => {
   const bingo = () => {
     clearInterval(intervalRef.current);
     socket.emit('check-bingo', { roomId: RoomId, userId: UserId });
+  };
+
+  const checkIfUserBingo = () => {
+    socket.on('verify-bingo', (element: VerifyBingo) => {
+      if (element.bingo) {
+        console.log(`${element.nickname} você bingou e ganhou um ponto`);
+        setScore(element.score);
+      }
+      if (!element.bingo) {
+        console.log(`${element.nickname} você não bingou e perdeu um ponto`);
+      }
+    });
   };
 
   return (
