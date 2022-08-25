@@ -39,25 +39,23 @@ const Bingo: React.FC = () => {
     }
   };
 
-  const modalHelpCreate = () => {};
+  const Navigate = useNavigate();
 
-  const modalPoints = () => {
-    if (1 > 0) {
-      swall({
-        icon: "error",
-        title: "Você não bingou e perdeu 1 ponto",
-        timer: 3000,
-      });
-    } else {
-      swall({
-        icon: "succes",
-        title: "Você bingou e ganhou 1 ponto",
-        timer: 3000,
-      });
-    }
+  const modaladdPoints = () => {
+    swall({
+      icon: "succes",
+      title: "Você bingou e ganhou 1 ponto",
+      timer: 3000,
+    });
   };
 
-  const Navigate = useNavigate();
+  const modalRemovePoints = () => {
+    swall({
+      icon: "error",
+      title: "Você não bingou e perdeu 1 ponto",
+      timer: 3000,
+    });
+  };
 
   const nomeWinner = "test";
 
@@ -65,7 +63,7 @@ const Bingo: React.FC = () => {
     swall({
       icon: "info",
       title: `${nomeWinner} ganhou o jogo`,
-      text: `${nomeWinner} fez 10 pontos e venceu o jogo, cria uma nova sala ou entre em uma nova para continuar jogando`,
+      text: `${nomeWinner} fez 5 pontos e venceu o jogo, crie uma nova sala ou entre em uma nova para continuar jogando`,
       timer: 5000,
     });
     setTimeout(() => {
@@ -76,11 +74,13 @@ const Bingo: React.FC = () => {
   const modalHelpBingo = () => {
     swall({
       icon: "info",
-      title:"Como Vencer?",
-      text:`Para pontuar, voce deve completar uma fileira na vertical, horizontal ou diagonal em uma das tabelas
+      title: "COMO PONTUAR?",
+      text: `- Para pontuar, voce deve completar uma fileira na vertical, horizontal ou diagonal em uma das cartelas
              
-            Voce deve completar 10 pontos para vencer a partida`,
-      
+             - Voce deve completar 5 pontos para vencer a partida,
+
+             - Apos marcar uma linha inteira  em uma das cartelas aperte o Botão de BINGO!
+             `,
     });
   };
 
@@ -153,14 +153,12 @@ const Bingo: React.FC = () => {
                 <img className="bingo-currentball-img" src={bola} alt="" />
               </div>
 
-              
-              <button onClick={modalWin} className="bingo-button" type="button">
+              <button className="bingo-button" type="button">
                 Bingo
               </button>
 
               <div className="bingo-help">
-              
-              <button
+                <button
                   onClick={modalHelpBingo}
                   type="button"
                   className="bingo-button-help"
@@ -169,9 +167,6 @@ const Bingo: React.FC = () => {
                 </button>
               </div>
 
-              
-
-              
               <h2 className="bingo-h2-yourcards">your-cards</h2>
             </div>
             <div className="bingo-container3">
