@@ -45,7 +45,7 @@ const Bingo: React.FC = () => {
     swall({
       icon: "succes",
       title: "Você bingou e ganhou 1 ponto",
-      timer: 3000,
+      timer: 7000,
     });
   };
 
@@ -53,7 +53,7 @@ const Bingo: React.FC = () => {
     swall({
       icon: "error",
       title: "Você não bingou e perdeu 1 ponto",
-      timer: 3000,
+      timer: 7000,
     });
   };
 
