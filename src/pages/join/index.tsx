@@ -1,13 +1,20 @@
-import React from "react";
-import "./index.css";
-import bola from "../../assets/img/bola.png";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import swall from "sweetalert";
+import React from 'react';
+import './index.css';
+import bola from '../../assets/img/bola.png';
+import { useState } from 'react';
+import { getRoomJoin } from '../../services/bingoService';
+import { useNavigate, useParams } from 'react-router-dom';
+import swall from 'sweetalert';
+
+import { authRoomService } from '../../services/bingoService';
 
 const join = () => {
+  let { roomId } = useParams();
+  console.log(roomId);
+
   const [values, setValues] = useState({
     nickname: "",
+    roomId: roomId,
   });
 
   let navigate = useNavigate();
@@ -29,8 +36,22 @@ const join = () => {
       });
       return;
     } else {
-      // console.log(values);
-      // const response = await JoinService.Jogin(values);
+      const response = await getRoomJoin.singleRoomJoin(values);
+      const userid = response.data.user.id;
+
+      console.log("olaaaa", response.data.user);
+
+      const objtoken = {
+        userId: userid,
+      };
+      const responsetoken = await authRoomService.auth(objtoken);
+
+      const tokenuser = responsetoken.data.token;
+
+      localStorage.setItem("jwtToken", tokenuser);
+
+      console.log(response);
+
       swall({
         icon: "success",
         title: "você entrou na sala",
@@ -55,7 +76,9 @@ const join = () => {
               placeholder="nickname"
               onChange={handleChangesValues}
             />
-            <button type="submit">Entrar</button>
+            <button className="button" type="submit">
+              Entrar
+            </button>
           </form>
         </div>
       </body>

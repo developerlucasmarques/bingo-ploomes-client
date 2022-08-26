@@ -107,13 +107,28 @@ const Create = () => {
     navigate(`/Bingo/${values.nickname}`);
   };
 
+  const modalHelpCreate = () => {
+    swall({
+      icon: 'info',
+      title: 'COMO CRIAR UMA SALA',
+      text: `NICKNAME: Insira seu nickname para ser usado na sala
+
+             NOME DA SALA: Insira um nome para sua sala
+
+             TEMPO: Insira o delay para o sorteio de cada bola (Min:5s | Max: 10s)
+
+             CARTELAS: Insira a quantidades de cartela que cada usuario tera (Max: 3)
+      `,
+    });
+  };
+
   return (
     <>
       <body>
         <div className="page1">
           <div className="all">
             <h1>
-              <strong> Bingão do G5 </strong>
+              <strong> Breaking Bingo </strong>
             </h1>
 
             <img src={bola} alt="logo" />
@@ -159,7 +174,11 @@ const Create = () => {
                 <h2>Criar</h2>
               </button>
               <span className="buttons">
-                <button type="button" className="help">
+                <button
+                  onClick={modalHelpCreate}
+                  type="button"
+                  className="help"
+                >
                   ?
                 </button>
               </span>

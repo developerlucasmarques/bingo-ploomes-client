@@ -8,6 +8,8 @@ import { GeneratedCard } from './types/generated-card.type';
 import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
 import { UserWhithSelf } from './types/user-whith-self.type';
 import { VerifyBingo } from './types/verify-bingo-response.type';
+import swall from 'sweetalert';
+import { useNavigate } from 'react-router-dom';
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -131,13 +133,44 @@ const Bingo: React.FC = () => {
   const checkIfUserBingo = () => {
     socket.on('verify-bingo', (element: VerifyBingo) => {
       if (element.bingo) {
-        console.log(`${element.nickname} você bingou e ganhou um ponto`);
         setScore(element.score);
+        modaladdPoints();
       }
       if (!element.bingo) {
-        console.log(`${element.nickname} você não bingou e perdeu um ponto`);
+        modalRemovePoints();
       }
     });
+  };
+
+  const modaladdPoints = () => {
+    swall({
+      icon: 'success',
+      title: 'Você bingou e ganhou 1 ponto',
+      timer: 7000,
+    });
+  };
+
+  const modalRemovePoints = () => {
+    swall({
+      icon: 'error',
+      title: 'Você não bingou',
+      timer: 7000,
+    });
+  };
+
+  const nomeWinner = 'test';
+  const Navigate = useNavigate();
+
+  const modalWin = () => {
+    swall({
+      icon: 'info',
+      title: `${nomeWinner} ganhou o jogo`,
+      text: `${nomeWinner} fez 5 pontos e venceu o jogo, crie uma nova sala ou entre em uma nova para continuar jogando`,
+      timer: 5000,
+    });
+    setTimeout(() => {
+      Navigate('/');
+    }, 5000);
   };
 
   return (
@@ -145,7 +178,7 @@ const Bingo: React.FC = () => {
       <body className="bingo-body">
         <div className="bingo-chat">
           <div className="bingo-participantes">
-            <h1 className="bingo-h1-participants">Participants</h1>
+            <h1 className="bingo-h1-participants">Participantes</h1>
             <div className="bingo-participant-container">
               <div className="bingo-participant-boxname">
                 <img
@@ -155,7 +188,7 @@ const Bingo: React.FC = () => {
                 />
                 {Nickame}
               </div>
-              <h4 className="bingo-participant-h4">Score: {Score}</h4>
+              <h4 className="bingo-participant-h4">Pontos: {Score}</h4>
             </div>
           </div>
           <div className="bingo-messages">
@@ -187,7 +220,7 @@ const Bingo: React.FC = () => {
                   type="text"
                 />
                 <button className="bingo-chat-button" type="submit">
-                  Send
+                  Enviar
                 </button>
               </form>
             </span>
@@ -196,14 +229,14 @@ const Bingo: React.FC = () => {
         <div className="bingo-all">
           <div className="bingo-balls">
             <div className="bingo-container1">
-              <h1 className="bingo-oponente-cards">Oponente card</h1>
-              <h1 className="bingo-opoenente-name">oponente name</h1>
+              <h1 className="bingo-oponente-cards">Cartela do oponente</h1>
+              <h1 className="bingo-opoenente-name">Nome do oponente</h1>
               <div className="bingo-oponente-card">
-                <div className="bingo-current-card">Cartela adversaria</div>
+                <div className="bingo-current-card">Cartela adversária</div>
               </div>
             </div>
             <div className="bingo-container2">
-              <h1 className="bingo-h1-currentball">current Ball</h1>
+              <h1 className="bingo-h1-currentball">Bola Atual</h1>
               <div className="bingo-current-ball">
                 <div className="time">{time}</div>
                 <div className="bingo-currentball-newBall">
@@ -225,10 +258,10 @@ const Bingo: React.FC = () => {
               >
                 Começar
               </button>
-              <h2 className="bingo-h2-yourcards">your-cards</h2>
+              <h2 className="bingo-h2-yourcards">Suas Cartelas</h2>
             </div>
             <div className="bingo-container3">
-              <h1 className="bingo-h1-board">Board</h1>
+              <h1 className="bingo-h1-board">Quadro de Bolas</h1>
               <div className="bingo-before-balls">
                 <div className="bingo-container-beforeballs">
                   <span className="bingo-beforeball">
@@ -275,7 +308,7 @@ const Bingo: React.FC = () => {
                   </div>
                   <div className="bingo-button-select">
                     <button className="bingo-super-button" type="submit">
-                      Activate Super
+                      Ativar Super
                     </button>
                   </div>
                 </form>

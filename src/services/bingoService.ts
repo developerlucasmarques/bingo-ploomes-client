@@ -1,4 +1,4 @@
-import api from "./api";
+import api from './api';
 
 interface dados {
   nickname: string;
@@ -10,7 +10,7 @@ interface dados {
 const createRoomService = {
   createRoom: async (values: dados) =>
     api
-      .post("/room", values)
+      .post('/room', values)
       .then((response: any) => response)
       .catch((error: any) => console.log(error.message)),
 };
@@ -18,7 +18,7 @@ const createRoomService = {
 const authRoomService = {
   auth: async (userid: any) =>
     api
-      .post("/auth", userid)
+      .post('/auth', userid)
       .then((response: any) => response)
       .catch((error: any) => console.log(error.message)),
 };
@@ -26,11 +26,19 @@ const authRoomService = {
 const getRoom = {
   singleRoom: async () =>
     api
-      .get("/room/single")
+      .get('/room/single')
       .then((response: any) => {
         return response;
       })
       .catch((error: any) => console.log(error)),
 };
 
-export { createRoomService, authRoomService, getRoom };
+const getRoomJoin = {
+  singleRoomJoin: async (values: any) =>
+    api
+      .post('/join', values)
+      .then((response: any) => response)
+      .catch((error: any) => console.log(error.message)),
+};
+
+export { createRoomService, authRoomService, getRoom, getRoomJoin };

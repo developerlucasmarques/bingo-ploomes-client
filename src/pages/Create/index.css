@@ -78,13 +78,15 @@ h1 {
 }
 
 .help {
-  height: 35px;
-  width: 35px;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
   margin-top: 5px;
   background-color: black;
   color: white;
+  font-weight: bolder;
   font-size: 2rem;
+  cursor: pointer;
 }
 .help:hover {
   background-color: rgb(39, 38, 38);
