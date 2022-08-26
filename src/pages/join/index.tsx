@@ -4,7 +4,7 @@ import bola from '../../assets/img/bola.png';
 import { useState } from 'react';
 import { getRoomJoin } from '../../services/bingoService';
 import { useNavigate, useParams } from 'react-router-dom';
-import swall from 'sweetalert';
+import swall from 'sweetalert'
 
 import { authRoomService } from '../../services/bingoService';
 
