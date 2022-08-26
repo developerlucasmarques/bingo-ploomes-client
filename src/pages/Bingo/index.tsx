@@ -10,6 +10,7 @@ import { UserWhithSelf } from './types/user-whith-self.type';
 import { VerifyBingo } from './types/verify-bingo-response.type';
 import swall from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
+import { ReceivedBalls } from './types/received-balls.type';
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -31,7 +32,8 @@ const Bingo: React.FC = () => {
   const [RoomId, setRoomId] = useState<string>();
   const [StartTime, setStartTime] = useState<number>();
   const [time, setTime] = useState<number>();
-  const intervalRef = useRef<number | undefined>();
+  const intervalRef = useRef<any>();
+  const [lastSixBalls, setLastSixBalls] = useState<number[]>();
   let startTime = 0;
 
   const getAllDetails = async () => {
@@ -105,13 +107,13 @@ const Bingo: React.FC = () => {
   };
 
   const newBall = () => {
-    socket.on('new-ball', (ball) => {
+    socket.on('new-ball', (balls) => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         setTime(startTime);
       }
 
-      if (ball.end === true) {
+      if (balls.end === true) {
         clearInterval(intervalRef.current);
         console.log('fim');
         return;
@@ -121,7 +123,8 @@ const Bingo: React.FC = () => {
         setTime((time) => Number(time) - 1);
       }, 1000);
 
-      setNewBall(ball.ball);
+      setNewBall(balls.ball);
+      setLastSixBalls(balls.lastSixBalls);
     });
   };
 
@@ -264,26 +267,11 @@ const Bingo: React.FC = () => {
               <h1 className="bingo-h1-board">Quadro de Bolas</h1>
               <div className="bingo-before-balls">
                 <div className="bingo-container-beforeballs">
-                  <span className="bingo-beforeball">
-                    <img className="bingo-ballimg" src={bola} alt="" />{' '}
-                  </span>
-                  <span className="bingo-beforeball">
-                    <img className="bingo-ballimg" src={bola} alt="" />
-                  </span>
-                  <span className="bingo-beforeball">
-                    <img className="bingo-ballimg" src={bola} alt="" />
-                  </span>
-                </div>
-                <div className="bingo-container-beforeballs">
-                  <span className="bingo-beforeball">
-                    <img className="bingo-ballimg" src={bola} alt="" />
-                  </span>
-                  <span className="bingo-beforeball">
-                    <img className="bingo-ballimg" src={bola} alt="" />
-                  </span>
-                  <span className="bingo-beforeball">
-                    <img className="bingo-ballimg" src={bola} alt="" />
-                  </span>
+                  {lastSixBalls?.map<React.ReactNode>((ball: number) => (
+                    <div className="around-ball">
+                      <div className="new-ball-middle-circus">{ball}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
 

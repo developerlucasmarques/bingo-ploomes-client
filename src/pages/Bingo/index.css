@@ -314,6 +314,8 @@
   background: radial-gradient(at top left, #93ec67 20%, rgb(6, 83, 6));
   box-shadow: 0px 0px 10px 1px rgba(147, 236, 103, 0.5);
   display: flex;
+  font-size: 3rem;
+  font-weight: bold;
   justify-content: center;
   align-items: center;
 }
@@ -326,8 +328,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3rem;
-  font-weight: bold;
   background: radial-gradient(at left, #fff 50%, rgb(153, 152, 152));
 }
 
@@ -423,11 +423,12 @@
 }
 
 .bingo-container-beforeballs {
-  height: 49%;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   flex-direction: row;
 }
 
@@ -610,4 +611,19 @@
   color: #ccc;
   position: absolute;
   margin-right: 16rem;
+}
+
+.around-ball {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: rgb(147, 236, 103);
+  background: radial-gradient(at top left, #93ec67 20%, rgb(6, 83, 6));
+  box-shadow: 0px 0px 10px 1px rgba(147, 236, 103, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0 1rem 0 1rem
 }
