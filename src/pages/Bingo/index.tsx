@@ -31,6 +31,7 @@ const Bingo: React.FC = () => {
   const [UserId, setUserId] = useState<string>();
   const [RoomId, setRoomId] = useState<string>();
   const [StartTime, setStartTime] = useState<number>();
+  const [ballExist, setBallExist] = useState<boolean>(false);
   const [time, setTime] = useState<number>();
   const intervalRef = useRef<any>();
   const [lastSixBalls, setLastSixBalls] = useState<number[]>();
@@ -106,6 +107,21 @@ const Bingo: React.FC = () => {
     socket.emit('start-game', { roomId: RoomId, userId: UserId });
   };
 
+  const currentBall = useRef<HTMLDivElement>(null);
+
+  const ballExistF = () => {
+    if (ballExist) {
+      return (
+        <div
+          ref={currentBall}
+          className="bingo-currentball-newBall animation-spin-ball"
+        >
+          <div className="new-ball-middle-circus">{NewBall}</div>
+        </div>
+      );
+    }
+  };
+
   const newBall = () => {
     socket.on('new-ball', (balls) => {
       if (intervalRef.current) {
@@ -125,6 +141,13 @@ const Bingo: React.FC = () => {
 
       setNewBall(balls.ball);
       setLastSixBalls(balls.lastSixBalls);
+      setBallExist(true);
+
+      currentBall.current?.classList.add('animation-spin-ball');
+
+      setTimeout(() => {
+        currentBall.current?.classList.remove('animation-spin-ball');
+      }, 600);
     });
   };
 
@@ -181,7 +204,9 @@ const Bingo: React.FC = () => {
       <body className="bingo-body">
         <div className="bingo-chat">
           <div className="bingo-participantes">
-            <h1 className="bingo-h1-participants">Participantes</h1>
+            <div className="participantes-title">
+              <h1 className="bingo-h1-participants">Participantes</h1>
+            </div>
             <div className="bingo-participant-container">
               <div className="bingo-participant-boxname">
                 <img
@@ -232,19 +257,20 @@ const Bingo: React.FC = () => {
         <div className="bingo-all">
           <div className="bingo-balls">
             <div className="bingo-container1">
-              <h1 className="bingo-oponente-cards">Cartela do oponente</h1>
-              <h1 className="bingo-opoenente-name">Nome do oponente</h1>
-              <div className="bingo-oponente-card">
-                <div className="bingo-current-card">Cartela adversária</div>
+              <div className="bingo-award">
+                <h1 className="bingo-oponente-cards">Prêmio da rodada</h1>
               </div>
+
+              <div className="bingo-oponente-card"></div>
             </div>
             <div className="bingo-container2">
               <h1 className="bingo-h1-currentball">Bola Atual</h1>
               <div className="bingo-current-ball">
-                <div className="time">{time}</div>
-                <div className="bingo-currentball-newBall">
-                  <div className="new-ball-middle-circus">{NewBall}</div>
+                <div className="time">
+                  <p>TEMPO</p>
+                  {time}
                 </div>
+                {ballExistF()}
               </div>
               <button
                 onClick={bingo}
@@ -264,7 +290,10 @@ const Bingo: React.FC = () => {
               <h2 className="bingo-h2-yourcards">Suas Cartelas</h2>
             </div>
             <div className="bingo-container3">
-              <h1 className="bingo-h1-board">Quadro de Bolas</h1>
+              <div className="last-balls">
+                <h1 className="bingo-h1-board">Quadro de Bolas</h1>
+              </div>
+
               <div className="bingo-before-balls">
                 <div className="bingo-container-beforeballs">
                   {lastSixBalls?.map<React.ReactNode>((ball: number) => (

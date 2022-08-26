@@ -23,24 +23,30 @@
 
 .bingo-participantes {
   width: 100%;
-  height: 40%;
+  height: 45%;
   background-color: #383849;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.bingo-h1-participants {
-  height: 10%;
+.participantes-title {
+  margin: 0;
+  height: 19%;
   width: 100%;
-  text-align: center;
-  margin-bottom: 1px;
-  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background-color: #212130;
-  text-transform: uppercase;
-  font-weight: bold;
   color: #212130;
   border: 2px solid black;
+}
+
+.bingo-h1-participants {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .bingo-participant-container {
@@ -84,7 +90,7 @@
 
 .bingo-messages {
   background-color: #383849;
-  height: 60%;
+  height: 55%;
   width: 100%;
   margin-bottom: 5rem;
 }
@@ -93,13 +99,13 @@
   height: 10%;
   width: 100%;
   display: flex;
+  border-right: 2px solid black;
 }
 
 .bingo-chat-background {
   height: 90%;
   width: 100%;
   border-top: 2px solid black;
-  border-right: 2px solid black;
   border-left: 2px solid black;
   overflow-y: auto;
   overflow-x: hidden;
@@ -194,7 +200,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  border-top: 3px solid #000;
+  border-top: 2px solid #000;
+  border-left: 2px solid black;
 }
 
 .bingo-card {
@@ -210,38 +217,30 @@
 
 .bingo-container1 {
   height: 100%;
-  width: 25%;
+  width: 22%;
   background-color: #212130;
   border: 2px solid black;
 }
 
-.bingo-opoenente-name {
-  height: 20%;
+.bingo-oponente-card {
+  height: 100%;
   width: 100%;
-  color: white;
-  font-size: 1.5rem;
   background-color: #383849;
-  margin-bottom: 0;
-  -webkit-text-stroke: 1px white;
-  text-transform: uppercase;
-  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.bingo-oponente-card {
-  height: 64%;
+.bingo-award {
+  border-bottom: 2px solid black;
+  height: 15%;
   width: 100%;
-  background-color: #383849;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .bingo-oponente-cards {
-  height: 10%;
-  width: 100%;
   background-color: #212130;
   font-size: 1.6rem;
   margin-bottom: 0px;
@@ -250,6 +249,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0;
 }
 
 .bingo-current-card {
@@ -264,7 +264,7 @@
 
 .bingo-container2 {
   height: 100%;
-  width: 50%;
+  width: 53%;
   background-color: #212130;
   display: flex;
   flex-direction: column;
@@ -298,7 +298,7 @@
 
 .bingo-current-ball {
   height: 40%;
-  width: 50%;
+  width: 40%;
   background-color: #383849;
   border: 2px solid black;
   display: flex;
@@ -330,18 +330,22 @@
   align-items: center;
   background: radial-gradient(at left, #fff 50%, rgb(153, 152, 152));
 }
+.last-balls {
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-left: 2px solid black;
+}
 
 .bingo-h1-board {
-  height: 10%;
-  width: 100%;
-
-  margin-bottom: 0;
-  font-size: 2rem;
+  margin-top: 7 px;
+  font-size: 1.6rem;
   background-color: #212130;
   text-transform: uppercase;
   font-weight: bold;
   color: #212130;
-  border-left: 2px solid black;
 }
 
 .bingo-button {
@@ -407,7 +411,7 @@
   color: #212130;
   font-size: 2rem;
   border-top: 2px solid black;
-  -webkit-text-stroke: 1px #93ec67;
+  -webkit-text-stroke: 1.5px #93ec67;
 }
 
 .bingo-h1-currentball {
@@ -451,7 +455,7 @@
   color: #212130;
   background-color: #383849;
   border: 2px solid #212130;
-  -webkit-text-stroke: 0.5px #93ec67;
+  -webkit-text-stroke: 1px #93ec67;
   font-size: 1.5rem;
   font-weight: bolder;
   text-transform: uppercase;
@@ -606,11 +610,20 @@
 }
 
 .time {
-  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 3rem;
   font-weight: bolder;
-  color: #ccc;
+  color: #212130;
+  -webkit-text-stroke: 1px #93ec67;
   position: absolute;
-  margin-right: 16rem;
+  margin-right: 29%;
+}
+.time p {
+  font-weight: bold;
+  font-size: 1.8rem;
 }
 
 .around-ball {
@@ -625,5 +638,83 @@
   align-items: center;
   font-size: 1.4rem;
   font-weight: bold;
-  margin: 0 1rem 0 1rem
+  margin: 0 1rem 0 1rem;
 }
+
+.animation-spin-ball {
+  -webkit-animation: slide-in-elliptic-top-fwd 0.7s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-elliptic-top-fwd 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+}
+
+@keyframes slide-in-elliptic-top-fwd {
+  0% {
+    -webkit-transform: translateY(-600px) rotateX(-30deg) scale(0);
+    transform: translateY(-600px) rotateX(-30deg) scale(0);
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0) rotateX(0) scale(1);
+    transform: translateY(0) rotateX(0) scale(1);
+    -webkit-transform-origin: 50% 1000px;
+    transform-origin: 50% 1000px;
+    opacity: 1;
+  }
+}
+
+/* @-webkit-keyframes bounce-in-top {
+  0% {
+    -webkit-transform: translateY(-500px);
+    transform: translateY(-500px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  38% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    -webkit-transform: translateY(-65px);
+    transform: translateY(-65px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  72% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  81% {
+    -webkit-transform: translateY(-28px);
+    transform: translateY(-28px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  90% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  95% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+ */
