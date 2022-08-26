@@ -1,16 +1,17 @@
-import { State } from 'history';
-import React, { useEffect, useReducer, useRef, useState } from 'react';
-import bola from '../../assets/img/bola.png';
-import { getRoom } from '../../services/bingoService';
-import { useSocket } from './hooks/useSocket';
-import './index.css';
-import { GeneratedCard } from './types/generated-card.type';
-import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
-import { UserWhithSelf } from './types/user-whith-self.type';
-import { VerifyBingo } from './types/verify-bingo-response.type';
-import swall from 'sweetalert';
-import { useNavigate } from 'react-router-dom';
-import { ReceivedBalls } from './types/received-balls.type';
+import { State } from "history";
+import React, { useEffect, useReducer, useRef, useState } from "react";
+import bola from "../../assets/img/bola.png";
+import { getRoom } from "../../services/bingoService";
+import { useSocket } from "./hooks/useSocket";
+import "./index.css";
+import { GeneratedCard } from "./types/generated-card.type";
+import { RoomUsersCards } from "./types/room-users-and-user-self-cards.type";
+import { UserWhithSelf } from "./types/user-whith-self.type";
+import { VerifyBingo } from "./types/verify-bingo-response.type";
+import swall from "sweetalert";
+import { useNavigate } from "react-router-dom";
+import { ReceivedBalls } from "./types/received-balls.type";
+//ola mundo
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -18,7 +19,7 @@ const Bingo: React.FC = () => {
     handleSetCards();
   }, []);
 
-  const socket = useSocket('http://localhost:8001', {
+  const socket = useSocket("http://localhost:8001", {
     reconnectionAttempts: 10,
     reconnectionDelay: 5000,
     autoConnect: false,
@@ -62,7 +63,7 @@ const Bingo: React.FC = () => {
     startTime = room.ballTime;
     setStartTime(room.ballTime);
 
-    socket.emit('create-room-and-user', {
+    socket.emit("create-room-and-user", {
       roomId: room.id,
       userId: user?.id,
     });
@@ -78,33 +79,33 @@ const Bingo: React.FC = () => {
   }, [socket]);
 
   const StartListners = () => {
-    socket.io.on('reconnect', (attempt) => {
-      console.log('Reconnected on attempt: ' + attempt);
+    socket.io.on("reconnect", (attempt) => {
+      console.log("Reconnected on attempt: " + attempt);
     });
 
-    socket.io.on('reconnect_attempt', (attempt) => {
-      console.log('Reconnection attempt: ' + attempt);
+    socket.io.on("reconnect_attempt", (attempt) => {
+      console.log("Reconnection attempt: " + attempt);
     });
   };
 
   const handleSetCards = async () => {};
 
   const handleBackground = (event: React.SyntheticEvent) => {
-    if (event.currentTarget.className == 'number background-color-number') {
-      event.currentTarget.classList.remove('background-color-number');
+    if (event.currentTarget.className == "number background-color-number") {
+      event.currentTarget.classList.remove("background-color-number");
     } else {
-      event.currentTarget.classList.add('background-color-number');
+      event.currentTarget.classList.add("background-color-number");
     }
   };
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const startGame = (event: React.SyntheticEvent) => {
-    event.currentTarget.classList.add('bingo-button-display-none');
-    buttonRef.current?.classList.remove('bingo-button-display-none');
+    event.currentTarget.classList.add("bingo-button-display-none");
+    buttonRef.current?.classList.remove("bingo-button-display-none");
     setTime(StartTime);
 
-    socket.emit('start-game', { roomId: RoomId, userId: UserId });
+    socket.emit("start-game", { roomId: RoomId, userId: UserId });
   };
 
   const currentBall = useRef<HTMLDivElement>(null);
@@ -123,7 +124,7 @@ const Bingo: React.FC = () => {
   };
 
   const newBall = () => {
-    socket.on('new-ball', (balls) => {
+    socket.on("new-ball", (balls) => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         setTime(startTime);
@@ -131,7 +132,7 @@ const Bingo: React.FC = () => {
 
       if (balls.end === true) {
         clearInterval(intervalRef.current);
-        console.log('fim');
+        console.log("fim");
         return;
       }
 
@@ -143,21 +144,21 @@ const Bingo: React.FC = () => {
       setLastSixBalls(balls.lastSixBalls);
       setBallExist(true);
 
-      currentBall.current?.classList.add('animation-spin-ball');
+      currentBall.current?.classList.add("animation-spin-ball");
 
       setTimeout(() => {
-        currentBall.current?.classList.remove('animation-spin-ball');
+        currentBall.current?.classList.remove("animation-spin-ball");
       }, 600);
     });
   };
 
   const bingo = () => {
     clearInterval(intervalRef.current);
-    socket.emit('check-bingo', { roomId: RoomId, userId: UserId });
+    socket.emit("check-bingo", { roomId: RoomId, userId: UserId });
   };
 
   const checkIfUserBingo = () => {
-    socket.on('verify-bingo', (element: VerifyBingo) => {
+    socket.on("verify-bingo", (element: VerifyBingo) => {
       if (element.bingo) {
         setScore(element.score);
         modaladdPoints();
@@ -170,32 +171,32 @@ const Bingo: React.FC = () => {
 
   const modaladdPoints = () => {
     swall({
-      icon: 'success',
-      title: 'Você bingou e ganhou 1 ponto',
+      icon: "success",
+      title: "Você bingou e ganhou 1 ponto",
       timer: 7000,
     });
   };
 
   const modalRemovePoints = () => {
     swall({
-      icon: 'error',
-      title: 'Você não bingou',
+      icon: "error",
+      title: "Você não bingou",
       timer: 7000,
     });
   };
 
-  const nomeWinner = 'test';
+  const nomeWinner = "test";
   const Navigate = useNavigate();
 
   const modalWin = () => {
     swall({
-      icon: 'info',
+      icon: "info",
       title: `${nomeWinner} ganhou o jogo`,
       text: `${nomeWinner} fez 5 pontos e venceu o jogo, crie uma nova sala ou entre em uma nova para continuar jogando`,
       timer: 5000,
     });
     setTimeout(() => {
-      Navigate('/');
+      Navigate("/");
     }, 5000);
   };
 
