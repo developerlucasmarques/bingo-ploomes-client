@@ -1,6 +1,6 @@
-import { State } from 'history';
-import React, { useEffect, useReducer, useRef, useState } from 'react';
-import bola from '../../assets/img/bola.png';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import swall from 'sweetalert';
 import { getRoom } from '../../services/bingoService';
 import { useSocket } from './hooks/useSocket';
 import './index.css';
@@ -8,14 +8,10 @@ import { GeneratedCard } from './types/generated-card.type';
 import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
 import { UserWhithSelf } from './types/user-whith-self.type';
 import { VerifyBingo } from './types/verify-bingo-response.type';
-import swall from 'sweetalert';
-import { useNavigate } from 'react-router-dom';
-import { ReceivedBalls } from './types/received-balls.type';
 
 const Bingo: React.FC = () => {
   useEffect(() => {
     getAllDetails();
-    handleSetCards();
   }, []);
 
   const socket = useSocket('http://localhost:8001', {
@@ -72,9 +68,11 @@ const Bingo: React.FC = () => {
     socket.connect();
 
     StartListners();
+    newUser();
 
     newBall();
     checkIfUserBingo();
+    removeButtonBingo()
   }, [socket]);
 
   const StartListners = () => {
@@ -87,14 +85,19 @@ const Bingo: React.FC = () => {
     });
   };
 
-  const handleSetCards = async () => {};
-
   const handleBackground = (event: React.SyntheticEvent) => {
     if (event.currentTarget.className == 'number background-color-number') {
       event.currentTarget.classList.remove('background-color-number');
     } else {
       event.currentTarget.classList.add('background-color-number');
     }
+  };
+
+  const newUser = () => {
+    socket.on('new-user', (user: string) => {
+      console.log('user', user);
+    });
+    console.log('sada');
   };
 
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -123,6 +126,7 @@ const Bingo: React.FC = () => {
   };
 
   const newBall = () => {
+    
     socket.on('new-ball', (balls) => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -150,6 +154,14 @@ const Bingo: React.FC = () => {
       }, 600);
     });
   };
+
+  const removeButtonBingo = () => {
+    socket.on('remove-button-bingo', (remove: boolean) => {
+      if(remove) {
+        buttonRef.current?.classList.add('bingo-button-display-none')
+      }
+    })
+  }
 
   const bingo = () => {
     clearInterval(intervalRef.current);
