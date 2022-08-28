@@ -31,6 +31,8 @@ const Bingo: React.FC = () => {
   const [time, setTime] = useState<number>();
   const intervalRef = useRef<any>();
   const [lastSixBalls, setLastSixBalls] = useState<number[]>();
+  const [startGameUserHost, setStartGameUserHost] = useState<boolean>();
+
   let startTime = 0;
 
   const getAllDetails = async () => {
@@ -57,6 +59,7 @@ const Bingo: React.FC = () => {
     setRoomId(room.id);
     startTime = room.ballTime;
     setStartTime(room.ballTime);
+    setStartGameUserHost(user?.host);
 
     socket.emit('create-room-and-user', {
       roomId: room.id,
@@ -72,7 +75,7 @@ const Bingo: React.FC = () => {
 
     newBall();
     checkIfUserBingo();
-    removeButtonBingo()
+    showAndRemoveButtonBingo();
   }, [socket]);
 
   const StartListners = () => {
@@ -102,12 +105,32 @@ const Bingo: React.FC = () => {
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
+  const setStartGameButtonToHostUser = () => {
+    if (startGameUserHost) {
+      return (
+        <button onClick={startGame} className="start-button" type="button">
+          Começar
+        </button>
+      );
+    }
+  };
+
   const startGame = (event: React.SyntheticEvent) => {
     event.currentTarget.classList.add('bingo-button-display-none');
-    buttonRef.current?.classList.remove('bingo-button-display-none');
+
     setTime(StartTime);
 
     socket.emit('start-game', { roomId: RoomId, userId: UserId });
+  };
+
+  const showAndRemoveButtonBingo = () => {
+    socket.on('button-bingo', (boolean: boolean) => {
+      if (boolean === true) {
+        buttonRef.current?.classList.remove('bingo-button-display-none');
+      } else {
+        buttonRef.current?.classList.add('bingo-button-display-none');
+      }
+    });
   };
 
   const currentBall = useRef<HTMLDivElement>(null);
@@ -126,7 +149,6 @@ const Bingo: React.FC = () => {
   };
 
   const newBall = () => {
-    
     socket.on('new-ball', (balls) => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -135,7 +157,6 @@ const Bingo: React.FC = () => {
 
       if (balls.end === true) {
         clearInterval(intervalRef.current);
-        console.log('fim');
         return;
       }
 
@@ -155,24 +176,16 @@ const Bingo: React.FC = () => {
     });
   };
 
-  const removeButtonBingo = () => {
-    socket.on('remove-button-bingo', (remove: boolean) => {
-      if(remove) {
-        buttonRef.current?.classList.add('bingo-button-display-none')
-      }
-    })
-  }
-
   const bingo = () => {
-    clearInterval(intervalRef.current);
     socket.emit('check-bingo', { roomId: RoomId, userId: UserId });
   };
 
   const checkIfUserBingo = () => {
     socket.on('verify-bingo', (element: VerifyBingo) => {
       if (element.bingo) {
+        clearInterval(intervalRef.current);
         setScore(element.score);
-        modaladdPoints();
+        modalAddPoints();
       }
       if (!element.bingo) {
         modalRemovePoints();
@@ -180,7 +193,7 @@ const Bingo: React.FC = () => {
     });
   };
 
-  const modaladdPoints = () => {
+  const modalAddPoints = () => {
     swall({
       icon: 'success',
       title: 'Você bingou e ganhou 1 ponto',
@@ -191,7 +204,7 @@ const Bingo: React.FC = () => {
   const modalRemovePoints = () => {
     swall({
       icon: 'error',
-      title: 'Você não bingou',
+      title: 'Você não bingou e não poderá bingar pelas próximas 3 rodadas',
       timer: 7000,
     });
   };
@@ -292,13 +305,7 @@ const Bingo: React.FC = () => {
               >
                 Bingo
               </button>
-              <button
-                onClick={startGame}
-                className="start-button"
-                type="button"
-              >
-                Começar
-              </button>
+              {setStartGameButtonToHostUser()}
               <h2 className="bingo-h2-yourcards">Suas Cartelas</h2>
             </div>
             <div className="bingo-container3">
