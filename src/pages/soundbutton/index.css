@@ -1,0 +1,29 @@
+.allmusic {
+  height: 90%;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+olamundo {
+  height: 10%;
+}
+.soundbutton {
+  margin-top: 5px;
+  margin-bottom: 0;
+  background-color: green;
+}
+.soundbuttondisable {
+  margin-top: 5px;
+  margin-bottom: 0;
+  background-color: red;
+}
+.soundbuttondisable:hover {
+  background-color: rgb(188, 30, 30);
+}
+.isso {
+  height: 15px;
+}

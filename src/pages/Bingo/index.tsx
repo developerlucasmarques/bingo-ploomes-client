@@ -11,6 +11,7 @@ import { VerifyBingo } from "./types/verify-bingo-response.type";
 import swall from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { ReceivedBalls } from "./types/received-balls.type";
+import Sound from "react-sound";
 //ola mundo
 
 const Bingo: React.FC = () => {
