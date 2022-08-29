@@ -1,6 +1,7 @@
 export type UserSocket = {
-  token: string;
-  socket: string;
-  userId: string;
+  clientId?: string;
+  id: string;
+  nickname: string;
   score: number;
+  cards: any;
 };

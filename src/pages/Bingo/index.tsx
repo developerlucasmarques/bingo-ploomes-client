@@ -6,6 +6,7 @@ import { useSocket } from './hooks/useSocket';
 import './index.css';
 import { GeneratedCard } from './types/generated-card.type';
 import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
+import { UserSocket } from './types/user-socket';
 import { UserWhithSelf } from './types/user-whith-self.type';
 import { VerifyBingo } from './types/verify-bingo-response.type';
 
@@ -34,6 +35,7 @@ const Bingo: React.FC = () => {
   const [startGameUserHost, setStartGameUserHost] = useState<boolean>();
   const [showButtonStartGame, setShowButtonStartGame] = useState<boolean>(true);
   const [showButtonBingo, setShowButtonBingo] = useState<boolean>(false);
+  const [usersLogged, setUsersLogged] = useState<UserSocket[]>();
 
   let startTime = 0;
 
@@ -102,15 +104,18 @@ const Bingo: React.FC = () => {
     socket.on('user-reconnect', (room) => {
       setLastSixBalls(room.lastSixBalls);
       setNewBall(room.currentBall);
-      console.log('reconnect', room);
+      setBallExist(true);
+      setTimeout(() => {
+        currentBall.current?.classList.remove('animation-spin-ball');
+      }, 600);
     });
   };
 
   const newUser = () => {
-    socket.on('new-user', (user: string) => {
-      console.log('user', user);
+    socket.on('new-user', (user: UserSocket[]) => {
+      setUsersLogged(user);
+      console.log('1231231231',user)
     });
-    console.log('sada');
   };
 
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -273,7 +278,7 @@ const Bingo: React.FC = () => {
             <div className="participantes-title">
               <h1 className="bingo-h1-participants">Participantes</h1>
             </div>
-            <div className="bingo-participant-container">
+            <div className="bingo-participant-container-is-self">
               <div className="bingo-participant-boxname">
                 <img
                   className="bingo-participant-img"
@@ -284,6 +289,25 @@ const Bingo: React.FC = () => {
               </div>
               <h4 className="bingo-participant-h4">Pontos: {Score}</h4>
             </div>
+            {usersLogged?.map((user) => {
+              if (user.id != UserId) {
+                return (
+                  <div className="bingo-participant-container">
+                    <div className="bingo-participant-boxname">
+                      <img
+                        className="bingo-participant-img"
+                        src=" https://cdn-icons-png.flaticon.com/512/1/1247.png "
+                        alt=""
+                      />
+                      {user.nickname}
+                    </div>
+                    <h4 className="bingo-participant-h4">
+                      Pontos: {user.score}
+                    </h4>
+                  </div>
+                );
+              }
+            })}
           </div>
           <div className="bingo-messages">
             <div className="bingo-chat-background">
@@ -338,14 +362,6 @@ const Bingo: React.FC = () => {
                 </div>
                 {ballExistF()}
               </div>
-              {/* <button
-                onClick={bingo}
-                ref={buttonRef}
-                className="bingo-button bingo-button-display-none"
-                type="button"
-              >
-                Bingo
-              </button> */}
               {showAndRemoveButtonBingo()}
               {setStartGameButtonToHostUser()}
               <h2 className="bingo-h2-yourcards">Suas Cartelas</h2>
