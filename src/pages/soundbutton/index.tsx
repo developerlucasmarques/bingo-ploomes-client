@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import cool_sound from "../../assets/sounds/cool_sound.mp3";
+import seasa from "../../assets/sounds/seasa.mp3";
 import { Howl } from "howler";
 import "./index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
