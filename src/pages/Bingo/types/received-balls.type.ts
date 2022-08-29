@@ -1,4 +1,6 @@
+import { DrawnNumberAndKey } from './drawn-number-key.type';
+
 export type ReceivedBalls = {
-  ball: number;
+  ballAndKey: DrawnNumberAndKey;
   lastSixBalls: number[];
 };

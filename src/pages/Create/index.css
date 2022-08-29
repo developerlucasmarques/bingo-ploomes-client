@@ -89,7 +89,7 @@ h1 {
   cursor: pointer;
 }
 .help:hover {
-  background-color: rgb(39, 38, 38);
+  background-color: #212130;
 }
 
 .buttons {

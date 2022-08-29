@@ -52,15 +52,15 @@
 .bingo-participant-container {
   height: 17%;
   width: 98%;
-  background-color: #383866;
+  background-color: #303049;
   display: flex;
   align-items: center;
   justify-content: baseline;
-  border: 1px solid black;
+  border: 2px solid black;
   text-transform: uppercase;
   font-weight: bold;
   color: white;
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.2rem;
   margin-top: 0.15rem;
   border-radius: 1rem;
   padding: 0.5rem;
@@ -69,15 +69,15 @@
 .bingo-participant-container-is-self {
   height: 17%;
   width: 98%;
-  background-color: #383866;
+  background-color: #303049;
   display: flex;
   align-items: center;
   justify-content: baseline;
-  border: 1px solid #93ec67;
+  border: 2px solid #93ec67;
   text-transform: uppercase;
   font-weight: bold;
   color: white;
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.2rem;
   margin-top: 0.3rem;
   border-radius: 1rem;
   padding: 0.5rem;
@@ -89,7 +89,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   border-right: 0.5rem;
   font-weight: bold;
   margin-right: 0.2rem;
@@ -101,6 +101,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  font-size: 1rem;
 }
 
 .bingo-participant-img {
@@ -120,7 +121,6 @@
   height: 10%;
   width: 100%;
   display: flex;
-  border-right: 2px solid black;
 }
 
 .bingo-chat-background {
@@ -226,7 +226,7 @@
 
 .bingo-card {
   height: 95%;
-  width: 30%;
+  width: 28%;
   border-radius: 7px;
   border: 2px solid #777;
   display: flex;
@@ -340,7 +340,7 @@
 }
 
 .bingo-current-ball h2 {
-  font-size: 5rem;
+  font-size: 5.5rem;
   color: #212130;
   -webkit-text-stroke: 1.5px #93ec67;
 }
@@ -655,7 +655,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-size: 4.5rem;
+  font-size: 5.5rem;
   font-weight: bolder;
   color: #212130;
   margin-right: 29%;
@@ -675,7 +675,7 @@
   border-radius: 50%;
   background-color: rgb(147, 236, 103);
   background: radial-gradient(at top left, #93ec67 20%, rgb(6, 83, 6));
-  box-shadow: 0px 0px 10px 1px rgba(147, 236, 103, 0.5);
+  box-shadow: 0px 0px 4px 1px rgba(80, 128, 57, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;

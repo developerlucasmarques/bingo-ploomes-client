@@ -5,7 +5,9 @@ import { getRoom } from '../../services/bingoService';
 import { useSocket } from './hooks/useSocket';
 import { sounds } from './howler/howler';
 import './index.css';
+import { DrawnNumberAndKey } from './types/drawn-number-key.type';
 import { GeneratedCard } from './types/generated-card.type';
+import { ReceivedBalls } from './types/received-balls.type';
 import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
 import { UserSocket } from './types/user-socket';
 import { UserWhithSelf } from './types/user-whith-self.type';
@@ -25,7 +27,7 @@ const Bingo: React.FC = () => {
   const [Nickame, setNickname] = useState<string | undefined>();
   const [Score, setScore] = useState<number | undefined>();
   const [Cards, SetCards] = useState<GeneratedCard[]>([]);
-  const [NewBall, setNewBall] = useState<number>();
+  const [NewBall, setNewBall] = useState<DrawnNumberAndKey>();
   const [UserId, setUserId] = useState<string>();
   const [RoomId, setRoomId] = useState<string>();
   const [StartTime, setStartTime] = useState<number>();
@@ -37,7 +39,6 @@ const Bingo: React.FC = () => {
   const [showButtonStartGame, setShowButtonStartGame] = useState<boolean>(true);
   const [showButtonBingo, setShowButtonBingo] = useState<boolean>(false);
   const [usersLogged, setUsersLogged] = useState<UserSocket[]>();
-  const [keyBall, setKeyBall] = useState<string>('B');
 
   let startTime = 0;
 
@@ -170,35 +171,38 @@ const Bingo: React.FC = () => {
   const ballAtTime = () => {
     if (ballExist) {
       return (
-        <div
-          ref={currentBall}
-          className="bingo-currentball-newBall animation-spin-ball"
-        >
-          <div className="new-ball-middle-circus">{NewBall}</div>
-        </div>
+        <>
+          <h2>{NewBall?.key} </h2>
+          <div
+            ref={currentBall}
+            className="bingo-currentball-newBall animation-spin-ball"
+          >
+            <div className="new-ball-middle-circus">{NewBall?.drawnNumber}</div>
+          </div>
+        </>
       );
     }
   };
 
   const newBall = () => {
-    socket.on('new-ball', (balls) => {
+    socket.on('new-ball', (balls: ReceivedBalls) => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         setTime(startTime);
       }
 
-      console.log(balls);
-
-      if (balls.end === true) {
-        clearInterval(intervalRef.current);
-        return;
-      }
+      socket.on('stop-balls', (stop: boolean) => {
+        if (stop) {
+          clearInterval(intervalRef.current);
+          return;
+        }
+      });
 
       intervalRef.current = setInterval(() => {
         setTime((time) => Number(time) - 1);
       }, 1000);
 
-      setNewBall(balls.ball);
+      setNewBall(balls.ballAndKey);
       setLastSixBalls(balls.lastSixBalls);
       setBallExist(true);
 
@@ -364,10 +368,7 @@ const Bingo: React.FC = () => {
             </div>
             <div className="bingo-container2">
               <h1 className="bingo-h1-currentball">Bola Atual</h1>
-              <div className="bingo-current-ball">
-                <h2>{keyBall} </h2>
-                {ballAtTime()}
-              </div>
+              <div className="bingo-current-ball">{ballAtTime()}</div>
               {showAndRemoveButtonBingo()}
               {setStartGameButtonToHostUser()}
               <h2 className="bingo-h2-yourcards">Suas Cartelas</h2>
