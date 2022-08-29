@@ -1,44 +1,25 @@
-import { faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Howl } from "howler";
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import swall from "sweetalert";
-import ciumenta from "../../assets/music/ciumenta.mp3";
-import errou from "../../assets/music/errou.mp3";
-import { getRoom } from "../../services/bingoService";
-import { useSocket } from "./hooks/useSocket";
-import "./index.css";
-import { GeneratedCard } from "./types/generated-card.type";
-import { RoomUsersCards } from "./types/room-users-and-user-self-cards.type";
-import { UserSocket } from "./types/user-socket";
-import { UserWhithSelf } from "./types/user-whith-self.type";
-import { VerifyBingo } from "./types/verify-bingo-response.type";
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import swall from 'sweetalert';
+import { getRoom } from '../../services/bingoService';
+import { useSocket } from './hooks/useSocket';
+import { sounds } from './howler/howler';
+import './index.css';
+import { GeneratedCard } from './types/generated-card.type';
+import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
+import { UserSocket } from './types/user-socket';
+import { UserWhithSelf } from './types/user-whith-self.type';
+import { VerifyBingo } from './types/verify-bingo-response.type';
 
 const Bingo: React.FC = () => {
   useEffect(() => {
     getAllDetails();
   }, []);
 
-  const socket = useSocket("http://localhost:8001", {
+  const socket = useSocket('http://localhost:8001', {
     reconnectionAttempts: 10,
     reconnectionDelay: 5000,
     autoConnect: false,
-  });
-
-  const sound = new Howl({
-    src: ciumenta,
-    html5: true,
-    onload: () => {
-      sound.volume(0.1);
-    },
-  });
-  const soundErrou = new Howl({
-    src: errou,
-    html5: true,
-    onload: () => {
-      soundErrou.volume(1);
-    },
   });
 
   const [Nickame, setNickname] = useState<string | undefined>();
@@ -56,6 +37,7 @@ const Bingo: React.FC = () => {
   const [showButtonStartGame, setShowButtonStartGame] = useState<boolean>(true);
   const [showButtonBingo, setShowButtonBingo] = useState<boolean>(false);
   const [usersLogged, setUsersLogged] = useState<UserSocket[]>();
+  const [keyBall, setKeyBall] = useState<string>('B');
 
   let startTime = 0;
 
@@ -85,7 +67,7 @@ const Bingo: React.FC = () => {
     setStartTime(room.ballTime);
     setStartGameUserHost(user?.host);
 
-    socket.emit("create-room-and-user", {
+    socket.emit('create-room-and-user', {
       roomId: room.id,
       userId: user?.id,
     });
@@ -103,38 +85,37 @@ const Bingo: React.FC = () => {
   }, [socket]);
 
   const StartListners = () => {
-    socket.io.on("reconnect", (attempt) => {
-      console.log("Reconnected on attempt: " + attempt);
+    socket.io.on('reconnect', (attempt) => {
+      console.log('Reconnected on attempt: ' + attempt);
     });
 
-    socket.io.on("reconnect_attempt", (attempt) => {
-      console.log("Reconnection attempt: " + attempt);
+    socket.io.on('reconnect_attempt', (attempt) => {
+      console.log('Reconnection attempt: ' + attempt);
     });
   };
 
   const handleBackground = (event: React.SyntheticEvent) => {
-    if (event.currentTarget.className == "number background-color-number") {
-      event.currentTarget.classList.remove("background-color-number");
+    if (event.currentTarget.className == 'number background-color-number') {
+      event.currentTarget.classList.remove('background-color-number');
     } else {
-      event.currentTarget.classList.add("background-color-number");
+      event.currentTarget.classList.add('background-color-number');
     }
   };
 
   const userReconnect = () => {
-    socket.on("user-reconnect", (room) => {
+    socket.on('user-reconnect', (room) => {
       setLastSixBalls(room.lastSixBalls);
       setNewBall(room.currentBall);
       setBallExist(true);
       setTimeout(() => {
-        currentBall.current?.classList.remove("animation-spin-ball");
+        currentBall.current?.classList.remove('animation-spin-ball');
       }, 600);
     });
   };
 
   const newUser = () => {
-    socket.on("new-user", (user: UserSocket[]) => {
+    socket.on('new-user', (user: UserSocket[]) => {
       setUsersLogged(user);
-      console.log("1231231231", user);
     });
   };
 
@@ -151,20 +132,20 @@ const Bingo: React.FC = () => {
   };
 
   const startGame = (event: React.SyntheticEvent) => {
-    event.currentTarget.classList.add("bingo-button-display-none");
+    event.currentTarget.classList.add('bingo-button-display-none');
 
     setTime(StartTime);
 
-    socket.emit("start-game", { roomId: RoomId, userId: UserId });
+    socket.emit('start-game', { roomId: RoomId, userId: UserId });
 
     setShowButtonStartGame(false);
   };
 
   const showAndRemoveButtonBingo = () => {
-    socket.on("button-bingo", (boolean: boolean) => {
+    socket.on('button-bingo', (boolean: boolean) => {
       if (boolean === true) {
         setShowButtonBingo(true);
-        console.log("button", boolean);
+        console.log('button', boolean);
       } else {
         setShowButtonBingo(false);
       }
@@ -186,7 +167,7 @@ const Bingo: React.FC = () => {
 
   const currentBall = useRef<HTMLDivElement>(null);
 
-  const ballExistF = () => {
+  const ballAtTime = () => {
     if (ballExist) {
       return (
         <div
@@ -200,7 +181,7 @@ const Bingo: React.FC = () => {
   };
 
   const newBall = () => {
-    socket.on("new-ball", (balls) => {
+    socket.on('new-ball', (balls) => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         setTime(startTime);
@@ -221,20 +202,20 @@ const Bingo: React.FC = () => {
       setLastSixBalls(balls.lastSixBalls);
       setBallExist(true);
 
-      currentBall.current?.classList.add("animation-spin-ball");
+      currentBall.current?.classList.add('animation-spin-ball');
 
       setTimeout(() => {
-        currentBall.current?.classList.remove("animation-spin-ball");
+        currentBall.current?.classList.remove('animation-spin-ball');
       }, 600);
     });
   };
 
   const bingo = () => {
-    socket.emit("check-bingo", { roomId: RoomId, userId: UserId });
+    socket.emit('check-bingo', { roomId: RoomId, userId: UserId });
   };
 
   const checkIfUserBingo = () => {
-    socket.on("verify-bingo", (element: VerifyBingo) => {
+    socket.on('verify-bingo', (element: VerifyBingo) => {
       if (element.bingo) {
         clearInterval(intervalRef.current);
         setScore(element.score);
@@ -242,11 +223,11 @@ const Bingo: React.FC = () => {
       }
       if (!element.bingo) {
         modalRemovePoints();
-        soundErrou.play();
+        sounds[1].play();
       }
     });
 
-    socket.on("user-made-point", (nickname) => {
+    socket.on('user-made-point', (nickname) => {
       modalUserMadePoint(nickname.nickname);
       clearInterval(intervalRef.current);
     });
@@ -254,15 +235,15 @@ const Bingo: React.FC = () => {
 
   const modalAddPoints = () => {
     swall({
-      icon: "success",
-      title: "Você bingou e ganhou 1 ponto",
+      icon: 'success',
+      title: 'Você bingou e ganhou 1 ponto',
       timer: 7000,
     });
   };
 
   const modalUserMadePoint = (nickname: string) => {
     swall({
-      icon: "success",
+      icon: 'success',
       title: `${nickname} fez um ponto`,
       timer: 7000,
     });
@@ -270,16 +251,16 @@ const Bingo: React.FC = () => {
 
   const modalRemovePoints = () => {
     swall({
-      icon: "error",
-      title: "Você não bingou e não poderá bingar pelas próximas 3 rodadas",
+      icon: 'error',
+      title: 'Você não bingou e não poderá bingar pelas próximas 5 rodadas',
       timer: 7000,
     });
   };
 
-  const nomeWinner = "test";
+  const nomeWinner = 'test';
   const Navigate = useNavigate();
 
-  let jwtsecret = localStorage.getItem("jwtToken");
+  let jwtsecret = localStorage.getItem('jwtToken');
 
   if (!jwtsecret) {
     Navigate(`/join/${RoomId}`);
@@ -287,29 +268,14 @@ const Bingo: React.FC = () => {
 
   const modalWin = () => {
     swall({
-      icon: "info",
+      icon: 'info',
       title: `${nomeWinner} ganhou o jogo`,
       text: `${nomeWinner} fez 5 pontos e venceu o jogo, crie uma nova sala ou entre em uma nova para continuar jogando`,
       timer: 5000,
     });
     setTimeout(() => {
-      Navigate("/");
+      Navigate('/');
     }, 5000);
-  };
-
-  let mudo = false;
-
-  const mute = (event: any) => {
-    console.log(event);
-    if (mudo == false) {
-      sound.volume(0);
-      mudo = true;
-      console.log("mudo");
-    } else {
-      mudo = false;
-      sound.volume(0.1);
-      console.log("desmutado");
-    }
   };
 
   return (
@@ -389,20 +355,18 @@ const Bingo: React.FC = () => {
         <div className="bingo-all">
           <div className="bingo-balls">
             <div className="bingo-container1">
-              <div className="bingo-award">
-                <h1 className="bingo-oponente-cards">T I M E R</h1>
+              <div className="last-balls">
+                <h1 className="bingo-h1-board">Tempo</h1>
               </div>
-
-              <div className="bingo-oponente-card"></div>
+              <div className="bingo-time">
+                <div className="time">{time}</div>
+              </div>
             </div>
             <div className="bingo-container2">
               <h1 className="bingo-h1-currentball">Bola Atual</h1>
               <div className="bingo-current-ball">
-                <div className="time">
-                  <p>TEMPO</p>
-                  {time}
-                </div>
-                {ballExistF()}
+                <h2>{keyBall} </h2>
+                {ballAtTime()}
               </div>
               {showAndRemoveButtonBingo()}
               {setStartGameButtonToHostUser()}
@@ -423,7 +387,7 @@ const Bingo: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bingo-supers">new feature</div>
+              {/* <div className="bingo-supers">new feature</div> */}
             </div>
           </div>
           <div className="bingo-cards">
