@@ -1,6 +1,11 @@
+import { faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Howl } from "howler";
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import swall from "sweetalert";
+import ciumenta from "../../assets/music/ciumenta.mp3";
+import errou from "../../assets/music/errou.mp3";
 import { getRoom } from "../../services/bingoService";
 import { useSocket } from "./hooks/useSocket";
 import "./index.css";
@@ -9,12 +14,6 @@ import { RoomUsersCards } from "./types/room-users-and-user-self-cards.type";
 import { UserSocket } from "./types/user-socket";
 import { UserWhithSelf } from "./types/user-whith-self.type";
 import { VerifyBingo } from "./types/verify-bingo-response.type";
-import { Howl } from "howler";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
-import borboleta from "../../assets/music/borboleta.mp3";
-import ciumenta from "../../assets/music/ciumenta.mp3";
-import audio1 from "../../assets/music/audio1.mp3";
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -32,6 +31,13 @@ const Bingo: React.FC = () => {
     html5: true,
     onload: () => {
       sound.volume(0.1);
+    },
+  });
+  const soundErrou = new Howl({
+    src: errou,
+    html5: true,
+    onload: () => {
+      soundErrou.volume(1);
     },
   });
 
@@ -236,6 +242,7 @@ const Bingo: React.FC = () => {
       }
       if (!element.bingo) {
         modalRemovePoints();
+        soundErrou.play();
       }
     });
 
@@ -416,13 +423,7 @@ const Bingo: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bingo-supers">
-                <FontAwesomeIcon
-                  onClick={mute}
-                  icon={faVolumeXmark}
-                  className="fa-5x fa-pull-left"
-                ></FontAwesomeIcon>
-              </div>
+              <div className="bingo-supers">new feature</div>
             </div>
           </div>
           <div className="bingo-cards">
