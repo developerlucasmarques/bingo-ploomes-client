@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import swall from 'sweetalert';
 import { getRoom } from '../../services/bingoService';
 import { useSocket } from './hooks/useSocket';
 import { sounds } from './howler/howler';
 import './index.css';
+import {
+  modalAddPoints,
+  modalRemovePoints,
+  modalUserMadePoint,
+} from './modals/modals';
 import { DrawnNumberAndKey } from './types/drawn-number-key.type';
 import { GeneratedCard } from './types/generated-card.type';
 import { ReceivedBalls } from './types/received-balls.type';
@@ -27,18 +31,19 @@ const Bingo: React.FC = () => {
   const [Nickame, setNickname] = useState<string | undefined>();
   const [Score, setScore] = useState<number | undefined>();
   const [Cards, SetCards] = useState<GeneratedCard[]>([]);
-  const [NewBall, setNewBall] = useState<DrawnNumberAndKey>();
+  const [NewBallAndKey, setNewBall] = useState<DrawnNumberAndKey>();
   const [UserId, setUserId] = useState<string>();
   const [RoomId, setRoomId] = useState<string>();
   const [StartTime, setStartTime] = useState<number>();
   const [ballExist, setBallExist] = useState<boolean>(false);
   const [time, setTime] = useState<number>();
-  const intervalRef = useRef<any>();
   const [lastSixBalls, setLastSixBalls] = useState<number[]>();
   const [startGameUserHost, setStartGameUserHost] = useState<boolean>();
-  const [showButtonStartGame, setShowButtonStartGame] = useState<boolean>(true);
+  const [showButtonStartGame, setShowButtonStartGame] = useState<boolean>();
   const [showButtonBingo, setShowButtonBingo] = useState<boolean>(false);
   const [usersLogged, setUsersLogged] = useState<UserSocket[]>();
+  const intervalRef = useRef<any>();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   let startTime = 0;
 
@@ -83,6 +88,8 @@ const Bingo: React.FC = () => {
     newBall();
     checkIfUserBingo();
     userReconnect();
+    showAndRemoveButtonStart();
+    showAndRemoveButtonBingo();
   }, [socket]);
 
   const StartListners = () => {
@@ -104,10 +111,11 @@ const Bingo: React.FC = () => {
   };
 
   const userReconnect = () => {
-    socket.on('user-reconnect', (room) => {
-      setLastSixBalls(room.lastSixBalls);
-      setNewBall(room.currentBall);
+    socket.on('user-reconnect', (balls: ReceivedBalls) => {
       setBallExist(true);
+      setLastSixBalls(balls.lastSixBalls);
+      setNewBall(balls.ballAndKey);
+
       setTimeout(() => {
         currentBall.current?.classList.remove('animation-spin-ball');
       }, 600);
@@ -120,18 +128,6 @@ const Bingo: React.FC = () => {
     });
   };
 
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  const setStartGameButtonToHostUser = () => {
-    if (startGameUserHost && showButtonStartGame) {
-      return (
-        <button onClick={startGame} className="start-button" type="button">
-          Começar
-        </button>
-      );
-    }
-  };
-
   const startGame = (event: React.SyntheticEvent) => {
     event.currentTarget.classList.add('bingo-button-display-none');
 
@@ -142,16 +138,39 @@ const Bingo: React.FC = () => {
     setShowButtonStartGame(false);
   };
 
+  const showAndRemoveButtonStart = () => {
+    socket.on('button-start', (showButton: boolean) => {
+      if (showButton) {
+        setShowButtonStartGame(true);
+      } else {
+        setShowButtonStartGame(false);
+      }
+    });
+  };
+
   const showAndRemoveButtonBingo = () => {
     socket.on('button-bingo', (boolean: boolean) => {
       if (boolean === true) {
         setShowButtonBingo(true);
-        console.log('button', boolean);
+        console.log('showBingo true');
       } else {
+        console.log('showBingo false');
         setShowButtonBingo(false);
       }
     });
+  };
 
+  const renderStartGameButtonToHostUser = () => {
+    if (startGameUserHost && showButtonStartGame) {
+      return (
+        <button onClick={startGame} className="start-button" type="button">
+          Começar
+        </button>
+      );
+    }
+  };
+
+  const renderButtonBingo = () => {
     if (showButtonBingo) {
       return (
         <button
@@ -168,16 +187,18 @@ const Bingo: React.FC = () => {
 
   const currentBall = useRef<HTMLDivElement>(null);
 
-  const ballAtTime = () => {
+  const renderCurrentBallAndKey = () => {
     if (ballExist) {
       return (
         <>
-          <h2>{NewBall?.key} </h2>
+          <h2>{NewBallAndKey?.key} </h2>
           <div
             ref={currentBall}
             className="bingo-currentball-newBall animation-spin-ball"
           >
-            <div className="new-ball-middle-circus">{NewBall?.drawnNumber}</div>
+            <div className="new-ball-middle-circus">
+              {NewBallAndKey?.drawnNumber}
+            </div>
           </div>
         </>
       );
@@ -237,50 +258,11 @@ const Bingo: React.FC = () => {
     });
   };
 
-  const modalAddPoints = () => {
-    swall({
-      icon: 'success',
-      title: 'Você bingou e ganhou 1 ponto',
-      timer: 7000,
-    });
-  };
-
-  const modalUserMadePoint = (nickname: string) => {
-    swall({
-      icon: 'success',
-      title: `${nickname} fez um ponto`,
-      timer: 7000,
-    });
-  };
-
-  const modalRemovePoints = () => {
-    swall({
-      icon: 'error',
-      title: 'Você não bingou e não poderá bingar pelas próximas 5 rodadas',
-      timer: 7000,
-    });
-  };
-
-  const nomeWinner = 'test';
-  const Navigate = useNavigate();
-
   let jwtsecret = localStorage.getItem('jwtToken');
-
+  const Navigate = useNavigate();
   if (!jwtsecret) {
     Navigate(`/join/${RoomId}`);
   }
-
-  const modalWin = () => {
-    swall({
-      icon: 'info',
-      title: `${nomeWinner} ganhou o jogo`,
-      text: `${nomeWinner} fez 5 pontos e venceu o jogo, crie uma nova sala ou entre em uma nova para continuar jogando`,
-      timer: 5000,
-    });
-    setTimeout(() => {
-      Navigate('/');
-    }, 5000);
-  };
 
   return (
     <>
@@ -368,9 +350,11 @@ const Bingo: React.FC = () => {
             </div>
             <div className="bingo-container2">
               <h1 className="bingo-h1-currentball">Bola Atual</h1>
-              <div className="bingo-current-ball">{ballAtTime()}</div>
-              {showAndRemoveButtonBingo()}
-              {setStartGameButtonToHostUser()}
+              <div className="bingo-current-ball">
+                {renderCurrentBallAndKey()}
+              </div>
+              {renderButtonBingo()}
+              {renderStartGameButtonToHostUser()}
               <h2 className="bingo-h2-yourcards">Suas Cartelas</h2>
             </div>
             <div className="bingo-container3">
@@ -387,8 +371,6 @@ const Bingo: React.FC = () => {
                   ))}
                 </div>
               </div>
-
-              {/* <div className="bingo-supers">new feature</div> */}
             </div>
           </div>
           <div className="bingo-cards">
