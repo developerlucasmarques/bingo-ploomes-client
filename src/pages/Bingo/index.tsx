@@ -13,9 +13,11 @@ import { DrawnNumberAndKey } from './types/drawn-number-key.type';
 import { GeneratedCard } from './types/generated-card.type';
 import { ReceivedBalls } from './types/received-balls.type';
 import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
+import { UserMessage } from './types/user-message.type';
 import { UserSocket } from './types/user-socket';
 import { UserWhithSelf } from './types/user-whith-self.type';
 import { VerifyBingo } from './types/verify-bingo-response.type';
+import send from '../../assets/icons/send.png';
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -40,10 +42,16 @@ const Bingo: React.FC = () => {
   const [lastSixBalls, setLastSixBalls] = useState<number[]>();
   const [startGameUserHost, setStartGameUserHost] = useState<boolean>();
   const [showButtonStartGame, setShowButtonStartGame] = useState<boolean>();
-  const [showButtonBingo, setShowButtonBingo] = useState<boolean>(false);
+  const [showButtonBingo, setShowButtonBingo] = useState<boolean>();
   const [usersLogged, setUsersLogged] = useState<UserSocket[]>();
+  const [message, setMessage] = useState<string>('');
+  const [chatPayload, setChatPayload] = useState<UserMessage[]>();
+
   const intervalRef = useRef<any>();
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const scrollRefSelf = useRef<HTMLDivElement>(null);
+  const scrollRefMessage = useRef<HTMLDivElement>(null);
+
 
   let startTime = 0;
 
@@ -90,6 +98,7 @@ const Bingo: React.FC = () => {
     userReconnect();
     showAndRemoveButtonStart();
     showAndRemoveButtonBingo();
+    chatListener();
   }, [socket]);
 
   const StartListners = () => {
@@ -150,7 +159,7 @@ const Bingo: React.FC = () => {
 
   const showAndRemoveButtonBingo = () => {
     socket.on('button-bingo', (boolean: boolean) => {
-      if (boolean === true) {
+      if (boolean) {
         setShowButtonBingo(true);
         console.log('showBingo true');
       } else {
@@ -184,6 +193,16 @@ const Bingo: React.FC = () => {
       );
     }
   };
+
+  useEffect(() => {
+    if (chatPayload) {
+      if (chatPayload[chatPayload?.length - 1].id === UserId) {
+        scrollRefSelf.current?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        scrollRefMessage.current?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [chatPayload]);
 
   const currentBall = useRef<HTMLDivElement>(null);
 
@@ -258,6 +277,28 @@ const Bingo: React.FC = () => {
     });
   };
 
+  const handleMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
+  };
+
+  const handleSubimit = (event: React.FormEvent<HTMLFormElement>) => {
+    const payload = {
+      roomId: RoomId,
+      userId: UserId,
+      message: message,
+    };
+    socket.emit('chat-msg', payload);
+
+    setMessage('');
+    event.preventDefault();
+  };
+
+  const chatListener = () => {
+    socket.on('new-message', (payload: UserMessage[]) => {
+      setChatPayload(payload);
+    });
+  };
+
   let jwtsecret = localStorage.getItem('jwtToken');
   const Navigate = useNavigate();
   if (!jwtsecret) {
@@ -304,38 +345,61 @@ const Bingo: React.FC = () => {
             })}
           </div>
           <div className="bingo-messages">
-            <div className="bingo-chat-background">
-              <div>
-                <div className="bingo-chat-message">
-                  <div className="chat-img-nickname">
-                    <img
-                      className="bingo-img-message"
-                      src="https://cdn-icons-png.flaticon.com/512/1/1247.png"
-                      alt=""
-                    />
-
-                    <h4 className="bingo-chat-nickname">Jacare</h4>
-                  </div>
-                  <h2 className="chat-message-content">
-                    falta 1 para o bingo bingo bingo bingo bingo bingo bingo
-                    bingo bingo bingo bingo ola mundo bingo ola mundo bingo ola
-                    mundo bingo ola mundo
-                  </h2>
+            <div className="bingo-messages-border">
+              <div className="bingo-chat-background">
+                {/* <h2>CHAT</h2> */}
+                <div>
+                  {chatPayload?.map<React.ReactNode>((message) => {
+                    if (message.id != UserId) {
+                      return (
+                        <div ref={scrollRefMessage} className="bingo-chat-area">
+                          <h4 className="bingo-chat-nickname">
+                            {message.nickname}
+                          </h4>
+                          <div className="bingo-chat-message">
+                            <h2 className="chat-message-content">
+                              {message.message}
+                            </h2>
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div ref={scrollRefSelf} className="bingo-chat-area-self">
+                          <h4 className="bingo-chat-nickname-self">
+                            {message.nickname}
+                          </h4>
+                          <div className="bingo-chat-message-self">
+                            <h2 className="chat-message-content-self">
+                              {message.message}
+                            </h2>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
                 </div>
               </div>
+              <span className="bingo-textsend">
+                <form
+                  className="bingo-chat-form"
+                  action=""
+                  onSubmit={handleSubimit}
+                >
+                  <input
+                    className="bingo-chat-input"
+                    placeholder="Escreva uma mensagem..."
+                    value={message}
+                    onChange={handleMessage}
+                    type="text"
+                    minLength={1}
+                  />
+                  <button className="bingo-chat-button" type="submit">
+                    <img src={send} alt="" />
+                  </button>
+                </form>
+              </span>
             </div>
-            <span className="bingo-textsend">
-              <form className="bingo-chat-form" action="">
-                <input
-                  className="bingo-chat-input"
-                  placeholder="Send message"
-                  type="text"
-                />
-                <button className="bingo-chat-button" type="submit">
-                  Enviar
-                </button>
-              </form>
-            </span>
           </div>
         </div>
         <div className="bingo-all">

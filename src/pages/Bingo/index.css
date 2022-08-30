@@ -24,7 +24,7 @@
 
 .bingo-participantes {
   width: 100%;
-  height: 45%;
+  height: 52%;
   background-color: #383849;
   display: flex;
   flex-direction: column;
@@ -73,7 +73,7 @@
   display: flex;
   align-items: center;
   justify-content: baseline;
-  border: 2px solid #93ec67;
+  border: 1px solid #93ec67;
   text-transform: uppercase;
   font-weight: bold;
   color: white;
@@ -112,36 +112,95 @@
 
 .bingo-messages {
   background-color: #383849;
-  height: 55%;
+  height: 48%;
   width: 100%;
   margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.bingo-messages-border {
+  width: 97%;
+  height: 95%;
+  border: 1.6px solid black;
+  border-radius: 15px;
+  margin-bottom: 8px;
 }
 
 .bingo-textsend {
-  height: 10%;
-  width: 100%;
-  display: flex;
-}
-
-.bingo-chat-background {
-  height: 90%;
-  width: 100%;
-  border-top: 2px solid black;
-  border-left: 2px solid black;
-  overflow-y: auto;
-  overflow-x: hidden;
-  float: left;
-}
-
-.bingo-chat-message {
   height: 14%;
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bingo-chat-background {
+  height: 86%;
+  width: 99%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 10px;
+  float: left;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #93ec67 #212130;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  height: 95%;
+  width: 6px;
+  border-radius: 20px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #212130;
+  border-radius: 20px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #93ec67;
+  border-radius: 20px;
+  border: 1px solid #212130;
+}
+
+.bingo-chat-message {
+  padding: 4px 10px 4px 10px;
+  border-radius: 10px;
+  background-color: #bdbde7;
+}
+
+.bingo-chat-area {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  display: flex;
   align-items: flex-start;
   flex-direction: column;
-  margin-right: 2px;
-  margin-left: 2px;
+  margin-right: 8%;
+  margin-left: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.bingo-chat-area-self {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-right: 0.5rem;
+  margin-left: 8%;
+  margin-bottom: 1rem;
+}
+
+.bingo-chat-message-self {
+  padding: 4px 10px 4px 10px;
+  border-radius: 10px;
+  background-color: #2e2e44;
 }
 
 .chat-img-nickname {
@@ -152,12 +211,29 @@
 }
 
 .chat-message-content {
+  color: #000;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.2rem;
+  margin-left: 2px;
+  margin-right: 2px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  padding: 2px 0 2px 0;
+}
+
+.chat-message-content-self {
   color: white;
   display: flex;
   flex-wrap: wrap;
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-left: 2px;
   margin-right: 2px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  padding: 3px 0 3px 0;
 }
 
 .bingo-img-message {
@@ -172,35 +248,59 @@
 
 .bingo-chat-button {
   margin-top: 0px;
-  height: 100%;
-  width: 20%;
+  height: 90%;
+  width: 12%;
   border-radius: 0px;
   font-size: 1rem;
   font-weight: bolder;
-  border-top: 2px solid black;
   cursor: pointer;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.bingo-chat-button:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.bingo-chat-button img {
+  width: auto;
+  height: 65%;
+}
+
+.bingo-chat-nickname-self {
+  text-transform: uppercase;
+  color: greenyellow;
+  margin: 0 5px 3px 0;
+  font-size: 0.9rem;
+  font-weight: bold;
 }
 
 .bingo-chat-nickname {
   text-transform: uppercase;
-  color: greenyellow;
+  color: #eee;
+  margin: 0 5px 3px 0;
 }
 
 .bingo-chat-input {
   margin-top: 0px;
   height: 100%;
   width: 80%;
-  border-radius: 0px;
   background-color: #383849;
-  border-top: 2px solid black;
   color: #fff;
+  border-radius: 15px;
+  margin-right: 1%;
 }
 
 .bingo-chat-form {
   display: flex;
   flex-direction: row;
-  height: 100%;
-  width: 100%;
+  height: 75%;
+  width: 97%;
+  border: 1.6px solid black;
+  border-radius: 20px;
 }
 
 .bingo-balls {
