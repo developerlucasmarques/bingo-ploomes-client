@@ -1,4 +1,4 @@
-.allmusic {
+/* .allmusic {
   height: 90%;
   width: 100vw;
   display: flex;
@@ -26,4 +26,30 @@ olamundo {
 }
 .isso {
   height: 15px;
+} */
+
+.modal-overlay {
+  background-color: #ececec38;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.modal-content {
+  width: 90%;
+
+  max-width: 500px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

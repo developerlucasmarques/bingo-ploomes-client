@@ -4,6 +4,7 @@ import Bingo from "./pages/Bingo";
 import Join from "./pages/join";
 import Create from "./pages/Create";
 import Soundpage from "./pages/soundbutton";
+import Modalcomponent from "./pages/reactmodal";
 
 const AppRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
         <Route path="/join/:roomId" element={<Join />}></Route>
         <Route path="/" element={<Create />}></Route>
         <Route path="/sound" element={<Soundpage />}></Route>
+        <Route path="/modal" element={<Modalcomponent />}></Route>
       </Routes>
     </Router>
   );

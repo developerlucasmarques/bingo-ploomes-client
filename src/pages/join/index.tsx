@@ -1,12 +1,12 @@
-import React from 'react';
-import './index.css';
-import bola from '../../assets/img/bola.png';
-import { useState } from 'react';
-import { getRoomJoin } from '../../services/bingoService';
-import { useNavigate, useParams } from 'react-router-dom';
-import swall from 'sweetalert'
+import React from "react";
+import "./index.css";
+import bola from "../../assets/img/bola.png";
+import { useState } from "react";
+import { getRoomJoin } from "../../services/bingoService";
+import { useNavigate, useParams } from "react-router-dom";
+import swall from "sweetalert";
 
-import { authRoomService } from '../../services/bingoService';
+import { authRoomService } from "../../services/bingoService";
 
 const join = () => {
   let { roomId } = useParams();
@@ -57,7 +57,7 @@ const join = () => {
         title: "você entrou na sala",
         timer: 1000,
       });
-      navigate(`/Bingo/${values.nickname}`);
+      navigate(`/Bingo/${roomId}`);
     }
   };
 
@@ -75,6 +75,7 @@ const join = () => {
               name="nickname"
               placeholder="nickname"
               onChange={handleChangesValues}
+              maxLength={20}
             />
             <button className="button" type="submit">
               Entrar

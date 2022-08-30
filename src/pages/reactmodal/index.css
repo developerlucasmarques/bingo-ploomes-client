@@ -1,0 +1,48 @@
+.modal-overlay {
+  background-color: #ececec38;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.modal-content {
+  width: 90%;
+
+  max-width: 500px;
+  background-color: #212130;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-button-copy {
+  background-color: #6dae4d;
+  margin-top: 0;
+  height: 4rem;
+}
+.modal-button-copy-default {
+  background-color: #93ec67;
+  margin-top: 0;
+  height: 4rem;
+}
+.input-copy-invite {
+  height: 4rem;
+  width: 80%;
+  margin: 0;
+}
+.divcopy {
+  display: flex;
+  align-items: row;
+}
+.modal-close-button {
+  display: flex;
+  justify-content: center;
+}

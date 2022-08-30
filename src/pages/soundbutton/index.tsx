@@ -12,6 +12,8 @@ import {
   faVolumeXmark,
   faVolumeHigh,
 } from "@fortawesome/free-solid-svg-icons";
+import Modal from "react-modal";
+
 const Soundpage = () => {
   const sound = new Howl({
     src: cool_sound,
@@ -28,6 +30,7 @@ const Soundpage = () => {
   });
 
   const [state, setstate] = useState("faVolumeXmark");
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const alert = "soundbutton";
 
@@ -74,6 +77,13 @@ const Soundpage = () => {
       console.log("desmutado");
       //setalert("soundbutton");
     }
+
+    const abrirmodal = () => {
+      setIsOpen(true);
+    };
+    const closeModal = () => {
+      setIsOpen(false);
+    };
   };
   return (
     <>
@@ -82,6 +92,7 @@ const Soundpage = () => {
       </div>
 
       <div className="allmusic">
+        <button>open modal</button>
         <FontAwesomeIcon
           onClick={start}
           icon={faPlay}
