@@ -24,7 +24,7 @@ const Bingo: React.FC = () => {
     getAllDetails();
   }, []);
 
-  const socket = useSocket('http://localhost:8001', {
+  const socket = useSocket('https://bingo-ploomes-server-production.up.railway.app/', {
     reconnectionAttempts: 10,
     reconnectionDelay: 5000,
     autoConnect: false,
@@ -51,7 +51,7 @@ const Bingo: React.FC = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const scrollRefSelf = useRef<HTMLDivElement>(null);
   const scrollRefMessage = useRef<HTMLDivElement>(null);
-
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   let startTime = 0;
 
@@ -198,8 +198,10 @@ const Bingo: React.FC = () => {
     if (chatPayload) {
       if (chatPayload[chatPayload?.length - 1].id === UserId) {
         scrollRefSelf.current?.scrollIntoView({ behavior: 'smooth' });
+        // bodyRef.current?.scrollIntoView();das
       } else {
         scrollRefMessage.current?.scrollIntoView({ behavior: 'smooth' });
+        // bodyRef.current?.scrollIntoView();
       }
     }
   }, [chatPayload]);
@@ -278,6 +280,10 @@ const Bingo: React.FC = () => {
   };
 
   const handleMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const message = event.target.value.trim();
+    if (!message) {
+      return;
+    }
     setMessage(event.target.value);
   };
 
@@ -308,7 +314,7 @@ const Bingo: React.FC = () => {
   return (
     <>
       <body className="bingo-body">
-        <div className="bingo-chat">
+        <div ref={bodyRef} className="bingo-chat">
           <div className="bingo-participantes">
             <div className="participantes-title">
               <h1 className="bingo-h1-participants">Participantes</h1>
@@ -365,7 +371,10 @@ const Bingo: React.FC = () => {
                       );
                     } else {
                       return (
-                        <div ref={scrollRefSelf} className="bingo-chat-area-self">
+                        <div
+                          ref={scrollRefSelf}
+                          className="bingo-chat-area-self"
+                        >
                           <h4 className="bingo-chat-nickname-self">
                             {message.nickname}
                           </h4>
@@ -393,6 +402,7 @@ const Bingo: React.FC = () => {
                     onChange={handleMessage}
                     type="text"
                     minLength={1}
+                    required
                   />
                   <button className="bingo-chat-button" type="submit">
                     <img src={send} alt="" />
