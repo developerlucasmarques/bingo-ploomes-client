@@ -1,0 +1,124 @@
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+
+  background-color: #212130;
+}
+
+.all {
+  height: 44rem;
+  width: 35rem;
+  background-color: #383849;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-text {
+  margin-top: 6px;
+  padding: 6px;
+  width: 80%;
+  height: 15%;
+  border-radius: 5px;
+  border: none;
+  box-shadow: none;
+  font-size: 1.2rem;
+  outline: none;
+  margin-bottom: 0.3rem;
+}
+
+img {
+  height: 10rem;
+  width: 10rem;
+}
+
+.slide {
+  display: flex;
+  padding: 5px;
+  height: 2.3rem;
+  width: 4rem;
+  outline: none;
+}
+
+.input-slide {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: baseline;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.button-1 {
+  height: 3rem;
+  width: 60%;
+  border-radius: 5px;
+  margin-top: 2rem;
+  background-color: #93ec67;
+  cursor: pointer;
+}
+
+h1 {
+  margin: 1rem 0 2.5rem 0;
+  -webkit-text-stroke: 1px #93ec67;
+  font-size: 64px;
+  color: #212130;
+}
+
+.help {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-top: 5px;
+  background-color: black;
+  color: white;
+  font-weight: bolder;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.help:hover {
+  background-color: #212130;
+}
+
+.buttons {
+  height: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  right: 500px;
+  top: 547px;
+  margin-right: 70px;
+  margin-bottom: 20px;
+}
+.page1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+.h2 {
+  margin-top: 2rem;
+  margin-right: 0.7rem;
+  padding: 5px;
+  color: #eee;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px #000;
+}
+.card2 {
+  margin-left: 4rem;
+}
+
+
