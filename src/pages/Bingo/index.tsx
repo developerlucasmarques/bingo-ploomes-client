@@ -525,17 +525,22 @@ const Bingo: React.FC = () => {
               </div>
               <div className="bingo-buttons-help-share">
                 <span className="bingo-container-help">
-                  <button onClick={openModalHelp} className="bingo-button-help">
+                  <button
+                    onClick={openModalHelp}
+                    className="bingo-button-help--bingo"
+                  >
                     ?
                   </button>
                 </span>
                 <span className="bingo-share">
-                  <img
-                    src={share}
-                    alt="compartilhe o link da sala com seus amigos"
-                    className="bingo-share-img"
-                    onClick={openModal}
-                  />
+                  <div className="container-share-img">
+                    <img
+                      src={share}
+                      alt="compartilhe o link da sala com seus amigos"
+                      className="bingo-share-img"
+                      onClick={openModal}
+                    />
+                  </div>
                 </span>
               </div>
             </div>
