@@ -1,28 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getRoom } from "../../services/bingoService";
-import { useSocket } from "./hooks/useSocket";
-import { sounds } from "./howler/howler";
-import "./index.css";
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getRoom } from '../../services/bingoService';
+import { useSocket } from './hooks/useSocket';
+import { sounds } from './howler/howler';
+import './index.css';
 import {
   modalAddPoints,
   modalRemovePoints,
   modalUserMadePoint,
-} from "./modals/modals";
-import { DrawnNumberAndKey } from "./types/drawn-number-key.type";
-import { GeneratedCard } from "./types/generated-card.type";
-import { ReceivedBalls } from "./types/received-balls.type";
-import { RoomUsersCards } from "./types/room-users-and-user-self-cards.type";
-import { UserMessage } from "./types/user-message.type";
-import { UserSocket } from "./types/user-socket";
-import { UserWhithSelf } from "./types/user-whith-self.type";
-import { VerifyBingo } from "./types/verify-bingo-response.type";
-import Modal from "react-modal";
-import swall from "sweetalert";
-import send from "../../assets/icons/send.png";
-import share from "../../assets/icons/share.png";
+} from './modals/modals';
+import { DrawnNumberAndKey } from './types/drawn-number-key.type';
+import { GeneratedCard } from './types/generated-card.type';
+import { ReceivedBalls } from './types/received-balls.type';
+import { RoomUsersCards } from './types/room-users-and-user-self-cards.type';
+import { UserMessage } from './types/user-message.type';
+import { UserSocket } from './types/user-socket';
+import { UserWhithSelf } from './types/user-whith-self.type';
+import { VerifyBingo } from './types/verify-bingo-response.type';
+import Modal from 'react-modal';
+import swall from 'sweetalert';
+import send from '../../assets/icons/send.png';
+import share from '../../assets/icons/share.png';
 
-Modal.setAppElement("#root");
+Modal.setAppElement('#root');
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -30,7 +30,7 @@ const Bingo: React.FC = () => {
   }, []);
 
   const socket = useSocket(
-    "https://bingo-ploomes-server-production.up.railway.app/",
+    'https://bingo-ploomes-server-production.up.railway.app/',
     {
       reconnectionAttempts: 10,
       reconnectionDelay: 5000,
@@ -52,11 +52,11 @@ const Bingo: React.FC = () => {
   const [showButtonStartGame, setShowButtonStartGame] = useState<boolean>();
   const [showButtonBingo, setShowButtonBingo] = useState<boolean>();
   const [usersLogged, setUsersLogged] = useState<UserSocket[]>();
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>('');
   const [chatPayload, setChatPayload] = useState<UserMessage[]>();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [copy, setcopy] = useState(true);
-  const [buttoncopy, setbuttoncopy] = useState("modal-button-copy-default");
+  const [buttoncopy, setbuttoncopy] = useState('modal-button-copy-default');
 
   const intervalRef = useRef<any>();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -92,7 +92,7 @@ const Bingo: React.FC = () => {
     setStartTime(room.ballTime);
     setStartGameUserHost(user?.host);
 
-    socket.emit("create-room-and-user", {
+    socket.emit('create-room-and-user', {
       roomId: room.id,
       userId: user?.id,
     });
@@ -113,53 +113,53 @@ const Bingo: React.FC = () => {
   }, [socket]);
 
   const StartListners = () => {
-    socket.io.on("reconnect", (attempt) => {
-      console.log("Reconnected on attempt: " + attempt);
+    socket.io.on('reconnect', (attempt) => {
+      console.log('Reconnected on attempt: ' + attempt);
     });
 
-    socket.io.on("reconnect_attempt", (attempt) => {
-      console.log("Reconnection attempt: " + attempt);
+    socket.io.on('reconnect_attempt', (attempt) => {
+      console.log('Reconnection attempt: ' + attempt);
     });
   };
 
   const handleBackground = (event: React.SyntheticEvent) => {
-    if (event.currentTarget.className == "number background-color-number") {
-      event.currentTarget.classList.remove("background-color-number");
+    if (event.currentTarget.className == 'number background-color-number') {
+      event.currentTarget.classList.remove('background-color-number');
     } else {
-      event.currentTarget.classList.add("background-color-number");
+      event.currentTarget.classList.add('background-color-number');
     }
   };
 
   const userReconnect = () => {
-    socket.on("user-reconnect", (balls: ReceivedBalls) => {
+    socket.on('user-reconnect', (balls: ReceivedBalls) => {
       setBallExist(true);
       setLastSixBalls(balls.lastSixBalls);
       setNewBall(balls.ballAndKey);
 
       setTimeout(() => {
-        currentBall.current?.classList.remove("animation-spin-ball");
+        currentBall.current?.classList.remove('animation-spin-ball');
       }, 600);
     });
   };
 
   const newUser = () => {
-    socket.on("new-user", (user: UserSocket[]) => {
+    socket.on('new-user', (user: UserSocket[]) => {
       setUsersLogged(user);
     });
   };
 
   const startGame = (event: React.SyntheticEvent) => {
-    event.currentTarget.classList.add("bingo-button-display-none");
+    event.currentTarget.classList.add('bingo-button-display-none');
 
     setTime(StartTime);
 
-    socket.emit("start-game", { roomId: RoomId, userId: UserId });
+    socket.emit('start-game', { roomId: RoomId, userId: UserId });
 
     setShowButtonStartGame(false);
   };
 
   const showAndRemoveButtonStart = () => {
-    socket.on("button-start", (showButton: boolean) => {
+    socket.on('button-start', (showButton: boolean) => {
       if (showButton) {
         setShowButtonStartGame(true);
       } else {
@@ -169,12 +169,10 @@ const Bingo: React.FC = () => {
   };
 
   const showAndRemoveButtonBingo = () => {
-    socket.on("button-bingo", (boolean: boolean) => {
+    socket.on('button-bingo', (boolean: boolean) => {
       if (boolean) {
         setShowButtonBingo(true);
-        console.log("showBingo true");
       } else {
-        console.log("showBingo false");
         setShowButtonBingo(false);
       }
     });
@@ -208,10 +206,10 @@ const Bingo: React.FC = () => {
   useEffect(() => {
     if (chatPayload) {
       if (chatPayload[chatPayload?.length - 1].id === UserId) {
-        scrollRefSelf.current?.scrollIntoView({ behavior: "smooth" });
+        scrollRefSelf.current?.scrollIntoView({ behavior: 'smooth' });
         // bodyRef.current?.scrollIntoView();das
       } else {
-        scrollRefMessage.current?.scrollIntoView({ behavior: "smooth" });
+        scrollRefMessage.current?.scrollIntoView({ behavior: 'smooth' });
         // bodyRef.current?.scrollIntoView();
       }
     }
@@ -238,13 +236,13 @@ const Bingo: React.FC = () => {
   };
 
   const newBall = () => {
-    socket.on("new-ball", (balls: ReceivedBalls) => {
+    socket.on('new-ball', (balls: ReceivedBalls) => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         setTime(startTime);
       }
 
-      socket.on("stop-balls", (stop: boolean) => {
+      socket.on('stop-balls', (stop: boolean) => {
         if (stop) {
           clearInterval(intervalRef.current);
           return;
@@ -259,20 +257,20 @@ const Bingo: React.FC = () => {
       setLastSixBalls(balls.lastSixBalls);
       setBallExist(true);
 
-      currentBall.current?.classList.add("animation-spin-ball");
+      currentBall.current?.classList.add('animation-spin-ball');
 
       setTimeout(() => {
-        currentBall.current?.classList.remove("animation-spin-ball");
+        currentBall.current?.classList.remove('animation-spin-ball');
       }, 600);
     });
   };
 
   const bingo = () => {
-    socket.emit("check-bingo", { roomId: RoomId, userId: UserId });
+    socket.emit('check-bingo', { roomId: RoomId, userId: UserId });
   };
 
   const checkIfUserBingo = () => {
-    socket.on("verify-bingo", (element: VerifyBingo) => {
+    socket.on('verify-bingo', (element: VerifyBingo) => {
       if (element.bingo) {
         clearInterval(intervalRef.current);
         setScore(element.score);
@@ -284,7 +282,7 @@ const Bingo: React.FC = () => {
       }
     });
 
-    socket.on("user-made-point", (nickname) => {
+    socket.on('user-made-point', (nickname) => {
       modalUserMadePoint(nickname.nickname);
       clearInterval(intervalRef.current);
     });
@@ -293,6 +291,7 @@ const Bingo: React.FC = () => {
   const handleMessage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const message = event.target.value.trim();
     if (!message) {
+      setMessage('');
       return;
     }
     setMessage(event.target.value);
@@ -304,19 +303,19 @@ const Bingo: React.FC = () => {
       userId: UserId,
       message: message,
     };
-    socket.emit("chat-msg", payload);
+    socket.emit('chat-msg', payload);
 
-    setMessage("");
+    setMessage('');
     event.preventDefault();
   };
 
   const chatListener = () => {
-    socket.on("new-message", (payload: UserMessage[]) => {
+    socket.on('new-message', (payload: UserMessage[]) => {
       setChatPayload(payload);
     });
   };
 
-  let jwtsecret = localStorage.getItem("jwtToken");
+  let jwtsecret = localStorage.getItem('jwtToken');
   const Navigate = useNavigate();
   if (!jwtsecret) {
     Navigate(`/join/${RoomId}`);
@@ -334,17 +333,17 @@ const Bingo: React.FC = () => {
       `https://bingo-ploomes-client-caan00ctr-mlucasdev.vercel.app/join/${RoomId}`
     );
     setcopy(false);
-    setbuttoncopy("modal-button-copy");
+    setbuttoncopy('modal-button-copy');
     setTimeout(() => {
       setcopy(true);
-      setbuttoncopy("modal-button-copy-default");
+      setbuttoncopy('modal-button-copy-default');
     }, 5000);
   };
 
   const openModalHelp = () => {
     swall({
-      icon: "info",
-      title: "como jogar",
+      icon: 'info',
+      title: 'como jogar',
       text: ` - Para  fazer um ponto voce deve completar uma linha vertical ou horizontal ou diagonal em uma das suas cartelas
 
               - depois de completar uma linha aperte o botão de Bingo 
