@@ -410,6 +410,37 @@
   border: 2px solid black;
   border-radius: 20px;
 }
+.bingo-buttons-help-share {
+  height: 22%;
+  width: 100%;
+  background-color: #383849;
+  display: flex;
+  border: 2px solid black;
+  border-radius: 15px;
+}
+.bingo-share-img {
+  height: 70%;
+  width: 40%;
+}
+.bingo-share-img:hover {
+  transform: scale(1.1);
+  transition-duration: 0.5s;
+}
+.bingo-share-help {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bingo-share {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 2px solid black;
+}
 
 .bingo-time {
   height: 50%;
@@ -519,6 +550,14 @@
   display: flex;
   justify-content: end;
   align-items: center;
+}
+.bingo-container-help {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  width: 50%;
 }
 
 .bingo-button-help {
@@ -807,4 +846,3 @@
     opacity: 1;
   }
 }
-
