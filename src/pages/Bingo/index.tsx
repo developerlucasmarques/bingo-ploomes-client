@@ -17,8 +17,12 @@ import { UserMessage } from "./types/user-message.type";
 import { UserSocket } from "./types/user-socket";
 import { UserWhithSelf } from "./types/user-whith-self.type";
 import { VerifyBingo } from "./types/verify-bingo-response.type";
+import Modal from "react-modal";
+import swall from "sweetalert";
 import send from "../../assets/icons/send.png";
 import share from "../../assets/icons/share.png";
+
+Modal.setAppElement("#root");
 
 const Bingo: React.FC = () => {
   useEffect(() => {
@@ -50,6 +54,9 @@ const Bingo: React.FC = () => {
   const [usersLogged, setUsersLogged] = useState<UserSocket[]>();
   const [message, setMessage] = useState<string>("");
   const [chatPayload, setChatPayload] = useState<UserMessage[]>();
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [copy, setcopy] = useState(true);
+  const [buttoncopy, setbuttoncopy] = useState("modal-button-copy-default");
 
   const intervalRef = useRef<any>();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -315,8 +322,75 @@ const Bingo: React.FC = () => {
     Navigate(`/join/${RoomId}`);
   }
 
+  const openModal = () => {
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const copybutton = () => {
+    navigator.clipboard.writeText(
+      `https://bingo-ploomes-client-caan00ctr-mlucasdev.vercel.app/join/${RoomId}`
+    );
+    setcopy(false);
+    setbuttoncopy("modal-button-copy");
+    setTimeout(() => {
+      setcopy(true);
+      setbuttoncopy("modal-button-copy-default");
+    }, 5000);
+  };
+
+  const openModalHelp = () => {
+    swall({
+      icon: "info",
+      title: "como jogar",
+      text: ` - Para  fazer um ponto voce deve completar uma linha vertical ou horizontal ou diagonal em uma das suas cartelas
+
+              - depois de completar uma linha aperte o botão de Bingo 
+
+              - se você apertar o botão de Bingo sem completar uma linha recebera uma punição
+
+              - o primeiro que bingar corretamente ganha a partida
+      
+      `,
+    });
+  };
+
   return (
     <>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="example modal"
+        overlayClassName="modal-overlay"
+        className="modal-content"
+      >
+        <h1>para convidar seus amigos copie o Link</h1>
+        <hr />
+        <div className="divcopy">
+          <input
+            className="input-copy-invite"
+            type="text"
+            placeholder={`https://bingo-ploomes-client-caan00ctr-mlucasdev.vercel.app/join/${RoomId}`}
+            value={`https://bingo-ploomes-client-caan00ctr-mlucasdev.vercel.app/join/${RoomId}`}
+          />
+          {copy == true ? (
+            <button className={buttoncopy} onClick={copybutton}>
+              copy
+            </button>
+          ) : (
+            <button className={buttoncopy} onClick={copybutton}>
+              copied
+            </button>
+          )}
+        </div>
+
+        <div className="modal-close-button">
+          <button onClick={closeModal}>fechar</button>
+        </div>
+      </Modal>
+
       <body className="bingo-body">
         <div ref={bodyRef} className="bingo-chat">
           <div className="bingo-participantes">
@@ -451,13 +525,16 @@ const Bingo: React.FC = () => {
               </div>
               <div className="bingo-buttons-help-share">
                 <span className="bingo-container-help">
-                  <button className="bingo-button-help">?</button>
+                  <button onClick={openModalHelp} className="bingo-button-help">
+                    ?
+                  </button>
                 </span>
                 <span className="bingo-share">
                   <img
                     src={share}
                     alt="compartilhe o link da sala com seus amigos"
                     className="bingo-share-img"
+                    onClick={openModal}
                   />
                 </span>
               </div>
