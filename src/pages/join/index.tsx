@@ -10,7 +10,6 @@ import { authRoomService } from "../../services/bingoService";
 
 const join = () => {
   let { roomId } = useParams();
-  console.log(roomId);
 
   const [values, setValues] = useState({
     nickname: "",
@@ -39,7 +38,7 @@ const join = () => {
       const response = await getRoomJoin.singleRoomJoin(values);
       const userid = response.data.user.id;
 
-      console.log("olaaaa", response.data.user);
+      console.log("essa e a response", response);
 
       const objtoken = {
         userId: userid,
@@ -49,8 +48,6 @@ const join = () => {
       const tokenuser = responsetoken.data.token;
 
       localStorage.setItem("jwtToken", tokenuser);
-
-      console.log(response);
 
       swall({
         icon: "success",
