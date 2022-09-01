@@ -368,14 +368,14 @@ const Bingo: React.FC = () => {
         overlayClassName="modal-overlay"
         className="modal-content"
       >
-        <h1>para convidar seus amigos copie o Link</h1>
+        <h1>Para convidar seus amigos, copie o link:</h1>
         <hr />
         <div className="divcopy">
           <input
             className="input-copy-invite"
             type="text"
-            placeholder={`https://bingo-ploomes-client-caan00ctr-mlucasdev.vercel.app/join/${RoomId}`}
-            value={`https://bingo-ploomes-client-caan00ctr-mlucasdev.vercel.app/join/${RoomId}`}
+            placeholder={`https://breakingbingo.tk/join/${RoomId}`}
+            value={`https://breakingbingo.tk/join/${RoomId}`}
           />
           {copy == true ? (
             <button className={buttoncopy} onClick={copybutton}>
