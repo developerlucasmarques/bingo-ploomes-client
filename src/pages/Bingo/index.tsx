@@ -481,6 +481,7 @@ const Bingo: React.FC = () => {
                     onChange={handleMessage}
                     type="text"
                     minLength={1}
+                    maxLength={150}
                     required
                   />
                   <button className="bingo-chat-button" type="submit">
