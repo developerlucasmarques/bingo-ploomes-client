@@ -1,12 +1,12 @@
-import "./index.css";
-import bola from "../../assets/img/bola.png";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import swall from "sweetalert";
+import './index.css';
+import bola from '../../assets/img/bola.png';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import swall from 'sweetalert';
 import {
   authRoomService,
   createRoomService,
-} from "../../services/bingoService";
+} from '../../services/bingoService';
 
 interface create {
   nickname: string;
@@ -16,8 +16,8 @@ interface create {
 }
 const Create = () => {
   const [values, setvalues] = useState<create>({
-    nickname: "",
-    name: "",
+    nickname: '',
+    name: '',
     ballTime: 0,
     userCards: 0,
   });
@@ -42,16 +42,16 @@ const Create = () => {
 
     if (values.ballTime > 10) {
       swall({
-        icon: "error",
-        title: "Você adicionou muito tempo, o máximo é 10",
+        icon: 'error',
+        title: 'Você adicionou muito tempo, o máximo é 10',
         timer: 3000,
       });
       return;
     }
     if (values.userCards > 3) {
       swall({
-        icon: "error",
-        title: "Você adicionou muitas cartelas, o máximo é 3",
+        icon: 'error',
+        title: 'Você adicionou muitas cartelas, o máximo é 3',
         timer: 3000,
       });
 
@@ -60,32 +60,32 @@ const Create = () => {
 
     if (values.ballTime < 5) {
       swall({
-        icon: "error",
-        title: "Adicione um tempo maior que 5",
+        icon: 'error',
+        title: 'Adicione um tempo maior que 5',
         timer: 3000,
       });
       return;
     }
     if (values.userCards <= 0) {
       swall({
-        icon: "error",
-        title: "Adicione um numero de cartelas maior que 0",
+        icon: 'error',
+        title: 'Adicione um numero de cartelas maior que 0',
         timer: 3000,
       });
       return;
     }
-    if (values.nickname == "") {
+    if (values.nickname == '') {
       swall({
-        icon: "error",
-        title: "Adicione um nickname",
+        icon: 'error',
+        title: 'Adicione um nickname',
         timer: 3000,
       });
       return;
     }
-    if (values.name == "") {
+    if (values.name == '') {
       swall({
-        icon: "error",
-        title: "Adicione um nome para a sala",
+        icon: 'error',
+        title: 'Adicione um nome para a sala',
         timer: 3000,
       });
       return;
@@ -104,22 +104,22 @@ const Create = () => {
 
     const tokenuser = responsetoken.data.token;
 
-    localStorage.setItem("jwtToken", tokenuser);
+    localStorage.setItem('jwtToken', tokenuser);
 
     navigate(`/Bingo/${roomid}`);
   };
 
   const modalHelpCreate = () => {
     swall({
-      icon: "info",
-      title: "COMO CRIAR UMA SALA",
+      icon: 'info',
+      title: 'COMO CRIAR UMA SALA',
       text: `NICKNAME: Insira seu nickname para ser usado na sala
 
              NOME DA SALA: Insira um nome para sua sala
 
              TEMPO: Insira o delay para o sorteio de cada bola (Min:5s | Max: 10s)
 
-             CARTELAS: Insira a quantidades de cartela que cada usuario tera (Max: 3)
+             CARTELAS: Insira a quantidades de cartelas que cada usuario terá (Max: 3)
       `,
     });
   };

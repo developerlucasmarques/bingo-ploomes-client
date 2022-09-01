@@ -346,14 +346,14 @@ const Bingo: React.FC = () => {
   const openModalHelp = () => {
     swall({
       icon: 'info',
-      title: 'como jogar',
-      text: ` - Para  fazer um ponto voce deve completar uma linha vertical ou horizontal ou diagonal em uma das suas cartelas
+      title: 'Como jogar',
+      text: ` - Para  fazer um ponto, você deve completar uma linha vertical, horizontal ou diagonal em uma das suas cartelas.
 
-              - depois de completar uma linha aperte o botão de Bingo 
+              - Depois de completar uma linha aperte o botão de Bingo 
 
-              - se você apertar o botão de Bingo sem completar uma linha recebera uma punição
+              - Se você apertar o botão de Bingo sem completar uma linha, receberá uma punição de 5 rodadas sem o botão de BINGO.
 
-              - o primeiro que bingar corretamente ganha a partida
+              - O primeiro que bingar corretamente ganha a partida
       
       `,
     });
