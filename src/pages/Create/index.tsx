@@ -130,7 +130,7 @@ const Create = () => {
         <div className="page1">
           <div className="all">
             <h1>
-              <strong> Breaking Bingo </strong>
+              <strong id="logo1"> Breaking Bingo </strong>
             </h1>
 
             <img src={bola} alt="logo" />
