@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Paytone+One&display=swap");
+
 .bingo-body {
   height: 100vh;
   width: 100vw;
@@ -972,6 +974,10 @@
 
 .new_text {
   color: white;
+}
+
+.new_font {
+  font-family: 'Paytone One', sans-serif;
 }
 .img-share-modal {
   height: 10rem;
