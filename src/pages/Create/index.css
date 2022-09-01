@@ -51,6 +51,7 @@ img {
   width: 4rem;
   outline: none;
   margin-top: 0;
+  cursor: grab;
 }
 
 .input-slide {
