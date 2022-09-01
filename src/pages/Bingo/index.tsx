@@ -368,7 +368,7 @@ const Bingo: React.FC = () => {
         overlayClassName="modal-overlay"
         className="modal-content"
       >
-        <h1>Para convidar seus amigos, copie o link:</h1>
+        <h1>Convide seus amigos:</h1>
         <hr />
         <div className="divcopy">
           <input
