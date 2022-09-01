@@ -49,10 +49,6 @@ const getRoom = {
             title: `você nao possui o token adicione um nickname para jogar`,
           });
         }
-        swall({
-          icon: "error",
-          title: `Erro de conexão com a API `,
-        });
       }),
 };
 
@@ -80,10 +76,8 @@ const getRoomJoin = {
             title: `A sala esta cheia entre em outra sala `,
           });
         }
-        swall({
-          icon: "error",
-          title: `Erro de conexão com a API `,
-        });
+
+        // console.log(error.response.data.statusCode);
       }),
 };
 
