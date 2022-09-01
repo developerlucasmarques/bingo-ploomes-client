@@ -158,7 +158,7 @@ const Create = () => {
                   name="ballTime"
                   className="slide"
                   type="range"
-                  value={5}
+                  defaultValue={5}
                   min={5}
                   max={10}
                 />
@@ -168,7 +168,7 @@ const Create = () => {
                   name="userCards"
                   className="slide"
                   type="range"
-                  value={1}
+                  defaultValue={1}
                   min={1}
                   max={3}
                 />
