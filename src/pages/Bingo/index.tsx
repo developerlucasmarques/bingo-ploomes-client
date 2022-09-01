@@ -186,7 +186,7 @@ const Bingo: React.FC = () => {
   const renderStartGameButtonToHostUser = () => {
     if (startGameUserHost && showButtonStartGame) {
       return (
-        <button onClick={startGame} className="start-button" type="button">
+        <button onClick={startGame} className="start-button new_font" type="button">
           Começar
         </button>
       );
@@ -410,7 +410,7 @@ const Bingo: React.FC = () => {
         <div ref={bodyRef} className="bingo-chat">
           <div className="bingo-participantes">
             <div className="participantes-title">
-              <h1 className="bingo-h1-participants new_text">Participantes</h1>
+              <h1 className="bingo-h1-participants new_text new_font">Participantes</h1>
             </div>
             <div className="bingo-participants-users">
               <div className="bingo-participant-container-is-self">
@@ -508,24 +508,24 @@ const Bingo: React.FC = () => {
           <div className="bingo-balls">
             <div className="bingo-container1">
               <div className="last-balls">
-                <h1 className="bingo-h1-board new_text">Tempo</h1>
+                <h1 className="bingo-h1-board new_text new_font">Tempo</h1>
               </div>
               <div className="bingo-time">
                 <div className="time">{time}</div>
               </div>
             </div>
             <div className="bingo-container2">
-              <h1 className="bingo-h1-currentball new_text">Bola Atual</h1>
+              <h1 className="bingo-h1-currentball new_text new_font">Bola Atual</h1>
               <div className="bingo-current-ball">
                 {renderCurrentBallAndKey()}
               </div>
               {renderButtonBingo()}
               {renderStartGameButtonToHostUser()}
-              <h2 className="bingo-h2-yourcards new_text">Suas Cartelas</h2>
+              <h2 className="bingo-h2-yourcards new_text new_font">Suas Cartelas</h2>
             </div>
             <div className="bingo-container3">
               <div className="last-balls">
-                <h1 className="bingo-h1-board new_text">Quadro de Bolas</h1>
+                <h1 className="bingo-h1-board new_text new_font">Quadro de Bolas</h1>
               </div>
 
               <div className="bingo-before-balls">
