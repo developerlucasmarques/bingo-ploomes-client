@@ -333,7 +333,7 @@ const Bingo: React.FC = () => {
 
   const copybutton = () => {
     navigator.clipboard.writeText(
-      `https://bingo-ploomes-client-caan00ctr-mlucasdev.vercel.app/join/${RoomId}`
+      `https://breakingbingo.tk/join/${RoomId}`
     );
     setcopy(false);
     setbuttoncopy('modal-button-copy');

@@ -157,7 +157,8 @@ const Create = () => {
                   onChange={handlechangeValuesNumber}
                   name="ballTime"
                   className="slide"
-                  type="number"
+                  type="range"
+                  value={5}
                   min={5}
                   max={10}
                 />
@@ -166,7 +167,8 @@ const Create = () => {
                   onChange={handlechangeValuesNumber}
                   name="userCards"
                   className="slide"
-                  type="number"
+                  type="range"
+                  value={1}
                   min={1}
                   max={3}
                 />

@@ -121,4 +121,10 @@ h1 {
   margin-left: 4rem;
 }
 
-
+#logo1 {
+  font-family: bbad;
+  -webkit-text-stroke: 0px ;
+  color: white;
+  font-size: 6rem;
+  font-weight: 0;
+}
