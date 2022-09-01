@@ -424,19 +424,15 @@
 .bingo-buttons-help-share {
   height: 22%;
   width: 100%;
-  background-color: #383849;
   display: flex;
-  border: 2px solid black;
+  justify-content: center;
   border-radius: 15px;
 }
 .bingo-share-img {
-  height: 70%;
-  width: 40%;
+  height: 60%;
+  width: auto;
 }
-.bingo-share-img:hover {
-  transform: scale(1.1);
-  transition-duration: 0.5s;
-}
+
 .bingo-share-help {
   height: 100%;
   width: 50%;
@@ -446,12 +442,11 @@
 }
 .bingo-share {
   height: 100%;
-  width: 50%;
+  width: 35%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border-left: 2px solid black;
 }
 
 .bingo-time {
@@ -568,8 +563,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-
-  width: 50%;
+  width: 35%;
 }
 
 .bingo-button-help {
@@ -912,20 +906,48 @@
   border-radius: 50%;
   margin-top: 0;
   z-index: 999;
-  background-color: black;
   color: white;
   font-size: 2rem;
+  transition-duration: 0.3s;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.bingo-button-help--bingo img {
+  height: 60%;
+  width: auto;
+}
+
 .bingo-button-help--bingo:hover {
-  background-color: rgb(39, 38, 38);
-  transform: scale(1.1);
-  transition-duration: 0.5s;
+  background-color: rgba(0, 0, 0, 0);
+  transition-duration: 0.3s;
 }
 
 .container-share-img {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 100%;
+  height: 4rem;
+  width: 4rem;
+  cursor: pointer;
+  transition: 0.5s;
+  border-radius: 50%;
+}
+
+.container-share-img:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
+}
+
+.bingo-button-help--bingo:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
+}
+
+.bingo-share-img:hover {
+  transition: 0.5s;
 }
