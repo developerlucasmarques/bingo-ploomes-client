@@ -977,7 +977,7 @@
 }
 
 .new_font {
-  font-family: 'Paytone One', sans-serif;
+  font-family: "Paytone One", sans-serif;
 }
 .img-share-modal {
   height: 10rem;
@@ -986,4 +986,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 1543px) {
+  .new_font {
+    font-size: 25px;
+  }
+  @media (max-width: 1200px) {
+    .bingo-h1-board {
+      font-size: 18px;
+    }
+  }
 }
