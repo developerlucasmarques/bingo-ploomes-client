@@ -853,7 +853,7 @@
   }
 }
 .modal-overlay {
-  background-color: #ececec38;
+  background-color: #00000078;
   position: fixed;
   top: 0;
   right: 0;
@@ -862,14 +862,19 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  transition-duration: 1;
 }
 .modal-content {
+  transition-duration: 1;
   width: 90%;
-
   max-width: 500px;
-  background-color: #212130;
+  background-color: #fff;
   padding: 10px;
   border-radius: 5px;
+}
+.text-h1-modal {
+  color: #45454a;
+  font-size: 2rem;
 }
 
 .container {
@@ -878,19 +883,32 @@
   align-items: center;
 }
 .modal-button-copy {
-  background-color: #6dae4d;
+  background-color: #78cbf2;
   margin-top: 0;
   height: 4rem;
 }
 .modal-button-copy-default {
-  background-color: #93ec67;
+  background-color: #78cbf2;
   margin-top: 0;
+  color: #fff;
   height: 4rem;
+  margin-left: 4px;
+}
+.modal-button-copy-default:hover {
+  background-color: #45b8ee;
+}
+.button-modal-fechar {
+  background-color: #78cbf2;
+  color: #fff;
+}
+.button-modal-fechar:hover {
+  background-color: #45b8ee;
 }
 .input-copy-invite {
   height: 4rem;
   width: 80%;
   margin: 0;
+  background-color: #777b7c67;
 }
 .divcopy {
   display: flex;
@@ -954,4 +972,12 @@
 
 .new_text {
   color: white;
+}
+.img-share-modal {
+  height: 10rem;
+}
+.container-img-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

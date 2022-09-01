@@ -22,6 +22,7 @@ import swall from "sweetalert";
 import send from "../../assets/icons/send.png";
 import share from "../../assets/icons/share.png";
 import ingerrogacao from "../../assets/icons/interrogacao2.png";
+import shareModal from "../../assets/img/shareModal.png";
 
 Modal.setAppElement("#root");
 
@@ -369,7 +370,14 @@ const Bingo: React.FC = () => {
         overlayClassName="modal-overlay"
         className="modal-content"
       >
-        <h1 className="new_text" >Convide seus amigos:</h1>
+        <div className="container-img-modal">
+          <img
+            src={shareModal}
+            alt="imagem de compartilhamento"
+            className="img-share-modal"
+          />
+        </div>
+        <h1 className="text-h1-modal">Convide seus amigos</h1>
         <hr />
         <div className="divcopy">
           <input
@@ -390,7 +398,9 @@ const Bingo: React.FC = () => {
         </div>
 
         <div className="modal-close-button">
-          <button onClick={closeModal}>FECHAR</button>
+          <button className="button-modal-fechar" onClick={closeModal}>
+            FECHAR
+          </button>
         </div>
       </Modal>
 
