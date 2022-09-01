@@ -889,6 +889,9 @@
   margin-top: 0;
   height: 4rem;
 }
+.modal-button-copy:hover {
+  background-color: #2486b3;
+}
 .modal-button-copy-default {
   background-color: #78cbf2;
   margin-top: 0;
