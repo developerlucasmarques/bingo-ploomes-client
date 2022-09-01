@@ -981,3 +981,9 @@
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 1110px) {
+  /* .bingo-container3 {
+    background-color: #45b8ee;
+  } */
+}

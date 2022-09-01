@@ -39,6 +39,8 @@ const Bingo: React.FC = () => {
       autoConnect: false,
     }
   );
+  let imgs = [send, share, shareModal, ingerrogacao];
+  let eachimg = Math.floor(Math.random() * 4);
 
   const [Nickame, setNickname] = useState<string | undefined>();
   const [Score, setScore] = useState<number | undefined>();
