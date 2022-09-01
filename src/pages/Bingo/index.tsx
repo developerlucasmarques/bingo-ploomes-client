@@ -110,6 +110,7 @@ const Bingo: React.FC = () => {
     showAndRemoveButtonStart();
     showAndRemoveButtonBingo();
     chatListener();
+    console.log(chatPayload);
   }, [socket]);
 
   const StartListners = () => {
@@ -311,7 +312,9 @@ const Bingo: React.FC = () => {
 
   const chatListener = () => {
     socket.on('new-message', (payload: UserMessage[]) => {
-      setChatPayload(payload);
+      if (payload.length > 0) {
+        setChatPayload(payload);
+      }
     });
   };
 
@@ -396,41 +399,39 @@ const Bingo: React.FC = () => {
             <div className="participantes-title">
               <h1 className="bingo-h1-participants">Participantes</h1>
             </div>
-            <div className="bingo-participant-container-is-self">
-              <div className="bingo-participant-boxname">
-                <img
-                  className="bingo-participant-img"
-                  src=" https://cdn-icons-png.flaticon.com/512/1/1247.png "
-                  alt=""
-                />
-                {Nickame}
+            <div className="bingo-participants-users">
+              <div className="bingo-participant-container-is-self">
+                <div className="bingo-participant-boxname">
+                  <img
+                    className="bingo-participant-img"
+                    src=" https://cdn-icons-png.flaticon.com/512/1/1247.png "
+                    alt=""
+                  />
+                  {Nickame}
+                </div>
               </div>
-              <h4 className="bingo-participant-h4">Pontos: {Score}</h4>
-            </div>
-            {usersLogged?.map((user) => {
-              if (user.id != UserId) {
-                return (
-                  <div className="bingo-participant-container">
-                    <div className="bingo-participant-boxname">
-                      <img
-                        className="bingo-participant-img"
-                        src=" https://cdn-icons-png.flaticon.com/512/1/1247.png "
-                        alt=""
-                      />
-                      {user.nickname}
+              {usersLogged?.map((user) => {
+                if (user.id != UserId) {
+                  return (
+                    <div className="bingo-participant-container">
+                      <div className="bingo-participant-boxname">
+                        <img
+                          className="bingo-participant-img"
+                          src=" https://cdn-icons-png.flaticon.com/512/1/1247.png "
+                          alt=""
+                        />
+                        {user.nickname}
+                      </div>
                     </div>
-                    <h4 className="bingo-participant-h4">
-                      Pontos: {user.score}
-                    </h4>
-                  </div>
-                );
-              }
-            })}
+                  );
+                }
+              })}
+            </div>
           </div>
           <div className="bingo-messages">
             <div className="bingo-messages-border">
               <div className="bingo-chat-background">
-                {/* <h2>CHAT</h2> */}
+                {/* <h3 >CHAT</h3> */}
                 <div>
                   {chatPayload?.map<React.ReactNode>((message) => {
                     if (message.id != UserId) {
