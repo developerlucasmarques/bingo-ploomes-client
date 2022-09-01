@@ -1,5 +1,6 @@
 import api from "./api";
 import swall from "sweetalert";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 interface dados {
   nickname: string;
@@ -16,7 +17,7 @@ const createRoomService = {
       .catch((error: any) =>
         swall({
           icon: "error",
-          title: `${error.message}`,
+          title: `${error.response.data.message}`,
         })
       ),
 };
@@ -29,7 +30,7 @@ const authRoomService = {
       .catch((error: any) =>
         swall({
           icon: "error",
-          title: `${error.message}`,
+          title: `${error.response.data.message}`,
         })
       ),
 };
@@ -41,12 +42,14 @@ const getRoom = {
       .then((response: any) => {
         return response;
       })
-      .catch((error: any) =>
-        swall({
-          icon: "error",
-          title: `${error.message}`,
-        })
-      ),
+      .catch((error: any) => {
+        if (error.response.data.statusCode == 401) {
+          swall({
+            icon: "error",
+            title: `você nao possui o token adicione um nickname para jogar`,
+          });
+        }
+      }),
 };
 
 const getRoomJoin = {
@@ -54,12 +57,14 @@ const getRoomJoin = {
     api
       .post("/join", values)
       .then((response: any) => response)
-      .catch((error: any) =>
-        swall({
-          icon: "error",
-          title: `${error.message}`,
-        })
-      ),
+      .catch((error: any) => {
+        if (error.response.data.statusCode == 400) {
+          swall({
+            icon: "error",
+            title: `o id da sala que você esta tentando entrar nao existe `,
+          });
+        }
+      }),
 };
 
 export { createRoomService, authRoomService, getRoom, getRoomJoin };
