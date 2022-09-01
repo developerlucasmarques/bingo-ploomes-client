@@ -595,7 +595,7 @@
   border: 2px solid black;
   border-bottom: none;
   border-radius: 10px 10px 0 0;
-  -webkit-text-stroke: 1.5px #93ec67;
+  /* -webkit-text-stroke: 1.5px #93ec67; */
 }
 
 .bingo-h1-currentball {
@@ -639,7 +639,7 @@
   color: #212130;
   background-color: #383849;
   border: 2px solid #212130;
-  -webkit-text-stroke: 1px #93ec67;
+  /* -webkit-text-stroke: 1px #93ec67; */
   font-size: 1.5rem;
   font-weight: bolder;
   text-transform: uppercase;
@@ -950,4 +950,8 @@
 
 .bingo-share-img:hover {
   transition: 0.5s;
+}
+
+.new_text {
+  color: white;
 }

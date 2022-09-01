@@ -130,7 +130,7 @@ const Create = () => {
         <div className="page1">
           <div className="all">
             <h1>
-              <strong id="logo1"> Breaking Bingo </strong>
+              <strong id="logo1"> Breaking bIngo </strong>
             </h1>
 
             <img src={bola} alt="logo" />
@@ -152,7 +152,7 @@ const Create = () => {
                 maxLength={20}
               />
               <span className="input-slide">
-                <h2 className="h2">Tempo: {values.ballTime}</h2>
+                <h2 className="h2b">Tempo: {values.ballTime}</h2>
                 <input
                   onChange={handlechangeValuesNumber}
                   name="ballTime"
@@ -162,7 +162,7 @@ const Create = () => {
                   min={5}
                   max={10}
                 />
-                <h2 className="h2 card2">Cartelas: {values.userCards}</h2>
+                <h2 className="h2b card2">Cartelas: {values.userCards}</h2>
                 <input
                   onChange={handlechangeValuesNumber}
                   name="userCards"

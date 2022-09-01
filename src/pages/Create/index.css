@@ -72,7 +72,7 @@ img {
 
 h1 {
   margin: 1rem 0 2.5rem 0;
-  -webkit-text-stroke: 1px #93ec67;
+  /* -webkit-text-stroke: 1px #93ec67; */
   font-size: 64px;
   color: #212130;
 }
@@ -116,7 +116,6 @@ h1 {
   font-size: 1.8rem;
   text-shadow: 1px 1px #000;
 }
-
 .card2 {
   margin-left: 4rem;
   margin-top: 0;
@@ -129,6 +128,11 @@ h1 {
   font-size: 6rem;
   font-weight: 0;
 }
-.slide {
-  margin-top: 0;
+.h2b {
+  margin-top: 2rem;
+  margin-right: 0.7rem;
+  padding: 5px;
+  color: #eee;
+  font-size: 1.3rem;
+  text-shadow: 1px 1px #000;
 }
