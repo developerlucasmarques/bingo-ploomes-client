@@ -509,7 +509,7 @@ const Bingo: React.FC = () => {
               </div>
               {renderButtonBingo()}
               {renderStartGameButtonToHostUser()}
-              <h2 className="bingo-h2-yourcards ">Suas Cartelas</h2>
+              <h2 className="bingo-h2-yourcards new_text">Suas Cartelas</h2>
             </div>
             <div className="bingo-container3">
               <div className="last-balls">
