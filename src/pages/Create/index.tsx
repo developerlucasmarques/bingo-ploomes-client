@@ -18,8 +18,8 @@ const Create = () => {
   const [values, setvalues] = useState<create>({
     nickname: '',
     name: '',
-    ballTime: 0,
-    userCards: 0,
+    ballTime: 5,
+    userCards: 1,
   });
 
   let navigate = useNavigate();
@@ -152,25 +152,28 @@ const Create = () => {
                 maxLength={20}
               />
               <span className="input-slide">
-                <h2 className="h2">Tempo </h2>
+                <h2 className="h2">Tempo: {values.ballTime}</h2>
                 <input
                   onChange={handlechangeValuesNumber}
                   name="ballTime"
                   className="slide"
                   type="range"
+                  id="timeRange"
                   defaultValue={5}
                   min={5}
                   max={10}
                 />
-                <h2 className="h2 card2">Cartelas</h2>
+                <h2 className="h2 card2">Cartelas: {values.userCards}</h2>
                 <input
                   onChange={handlechangeValuesNumber}
                   name="userCards"
                   className="slide"
                   type="range"
+                  id="cardRange"
                   defaultValue={1}
                   min={1}
                   max={3}
+                  
                 />
               </span>
 
