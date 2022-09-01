@@ -50,6 +50,7 @@ img {
   height: 2.3rem;
   width: 4rem;
   outline: none;
+  margin-top: 0;
 }
 
 .input-slide {
@@ -129,7 +130,7 @@ h1 {
   font-weight: 1;
 }
 .h2b {
-  margin-top: 2rem;
+  margin-top: 0;
   margin-right: 0.7rem;
   padding: 5px;
   color: #eee;
