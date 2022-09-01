@@ -62,7 +62,9 @@ const join = () => {
     <>
       <body>
         <div className="all">
-          <h1>Bingão do G5</h1>
+          <h1>
+          <strong id="logo1"> Breaking bIngo </strong>
+          </h1>
           <span className="bola">
             <img src={bola} alt="bola" />
           </span>
