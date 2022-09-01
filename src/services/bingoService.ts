@@ -61,15 +61,25 @@ const getRoomJoin = {
         if (error.response.data.statusCode == 400) {
           swall({
             icon: "error",
-            title: `o id da sala que você esta tentando entrar nao existe `,
+            title: `O id da sala que você esta tentando entrar nao existe `,
           });
         }
         if (error.response.data.statusCode == 404) {
           swall({
             icon: "error",
-            title: `o id da sala que você esta tentando entrar nao existe `,
+            title: `O id da sala que você esta tentando entrar nao existe `,
           });
         }
+        if (error.response.data.statusCode == 401) {
+          swall({
+            icon: "error",
+            title: `A sala esta cheia entre em outra sala `,
+          });
+        }
+        swall({
+          icon: "error",
+          title: `Erro de conexão com a API `,
+        });
       }),
 };
 
