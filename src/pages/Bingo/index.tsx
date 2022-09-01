@@ -284,6 +284,9 @@ const Bingo: React.FC = () => {
         clearInterval(intervalRef.current);
         setScore(element.score);
         modalAddPoints();
+        setTimeout(() => {
+          Navigate("/");
+        }, 7000);
       }
       if (!element.bingo) {
         modalRemovePoints();
@@ -294,6 +297,9 @@ const Bingo: React.FC = () => {
     socket.on("user-made-point", (nickname) => {
       modalUserMadePoint(nickname.nickname);
       clearInterval(intervalRef.current);
+      setTimeout(() => {
+        Navigate("/");
+      }, 7000);
     });
   };
 
