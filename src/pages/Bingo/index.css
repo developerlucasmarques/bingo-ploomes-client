@@ -912,6 +912,9 @@
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bingo-button-help--bingo img {
@@ -933,7 +936,6 @@
   cursor: pointer;
   transition: 0.5s;
   border-radius: 50%;
-  /* background-color: rgba(0, 0, 0, 0.2); */
 }
 
 .container-share-img:hover {
