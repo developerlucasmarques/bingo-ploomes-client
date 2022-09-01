@@ -21,6 +21,7 @@ import Modal from 'react-modal';
 import swall from 'sweetalert';
 import send from '../../assets/icons/send.png';
 import share from '../../assets/icons/share.png';
+import ingerrogacao from '../../assets/icons/interrogacao2.png'
 
 Modal.setAppElement('#root');
 
@@ -529,7 +530,7 @@ const Bingo: React.FC = () => {
                     onClick={openModalHelp}
                     className="bingo-button-help--bingo"
                   >
-                    ?
+                    <img src={ingerrogacao} alt="" />
                   </button>
                 </span>
                 <span className="bingo-share">
