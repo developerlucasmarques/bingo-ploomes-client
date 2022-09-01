@@ -64,6 +64,12 @@ const getRoomJoin = {
             title: `o id da sala que você esta tentando entrar nao existe `,
           });
         }
+        if (error.response.data.statusCode == 404) {
+          swall({
+            icon: "error",
+            title: `o id da sala que você esta tentando entrar nao existe `,
+          });
+        }
       }),
 };
 
