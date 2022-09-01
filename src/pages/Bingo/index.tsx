@@ -380,17 +380,17 @@ const Bingo: React.FC = () => {
           />
           {copy == true ? (
             <button className={buttoncopy} onClick={copybutton}>
-              copy
+              COPIAR
             </button>
           ) : (
             <button className={buttoncopy} onClick={copybutton}>
-              copied
+              COPIADO
             </button>
           )}
         </div>
 
         <div className="modal-close-button">
-          <button onClick={closeModal}>fechar</button>
+          <button onClick={closeModal}>FECHAR</button>
         </div>
       </Modal>
 
