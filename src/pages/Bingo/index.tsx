@@ -309,7 +309,7 @@ const Bingo: React.FC = () => {
       setTimeout(() => {
         Navigate('/');
         setconfeteState('bingo-confete-f');
-      }, 7000);
+      }, 12000);
     });
   };
 
