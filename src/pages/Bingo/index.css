@@ -117,9 +117,10 @@
 }
 
 .bingo-participant-img {
-  height: 30px;
-  width: 35px;
+  height: 40px;
+  width: auto;
   margin-right: 0.8rem;
+  border-radius: 50%;
 }
 
 .bingo-messages {

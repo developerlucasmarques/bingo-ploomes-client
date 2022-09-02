@@ -3,5 +3,6 @@ export type UserSocket = {
   id: string;
   nickname: string;
   score: number;
+  imageLink: string;
   cards: any;
 };
