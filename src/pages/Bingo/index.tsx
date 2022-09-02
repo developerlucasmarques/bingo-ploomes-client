@@ -24,6 +24,7 @@ import share from "../../assets/icons/share.png";
 import ingerrogacao from "../../assets/icons/interrogacao2.png";
 import shareModal from "../../assets/img/shareModal.png";
 import cowboy from "../../assets/img/cowboy.png";
+import confete from "../../assets/img/confete.gif";
 
 Modal.setAppElement("#root");
 
@@ -64,6 +65,7 @@ const Bingo: React.FC = () => {
   const [modalWinnerAllIsOpen, setmodalWinnerAllIsOpen] = useState(false);
   const [copy, setcopy] = useState(true);
   const [buttoncopy, setbuttoncopy] = useState("modal-button-copy-default");
+  const [confeteState, setconfeteState] = useState("bingo-confete-f");
 
   const intervalRef = useRef<any>();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -288,8 +290,10 @@ const Bingo: React.FC = () => {
         setScore(element.score);
         // modalAddPoints();
         openWinnerModal();
+        setconfeteState("bingo-confete");
         setTimeout(() => {
           Navigate("/");
+          setconfeteState("bingo-confete-f");
         }, 7000);
       }
       if (!element.bingo) {
@@ -300,10 +304,12 @@ const Bingo: React.FC = () => {
 
     socket.on("user-made-point", (nickname) => {
       // modalUserMadePoint(nickname.nickname);
-      openWinnerModalAll();
       clearInterval(intervalRef.current);
+      openWinnerModalAll();
+      setconfeteState("bingo-confete");
       setTimeout(() => {
         Navigate("/");
+        setconfeteState("bingo-confete-f");
       }, 7000);
     });
   };
@@ -395,6 +401,7 @@ const Bingo: React.FC = () => {
       {/* <button onClick={openWinnerModal}>winner single</button>
       <button onClick={openWinnerModalAll}>winner all</button> */}
       {/* modalhelp */}
+
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -494,6 +501,7 @@ const Bingo: React.FC = () => {
           </button>
         </div>
       </Modal>
+      <img className={confeteState} src={confete} alt="confetes caindo" />
 
       <body className="bingo-body">
         <div ref={bodyRef} className="bingo-chat">
