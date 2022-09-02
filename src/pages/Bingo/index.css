@@ -995,7 +995,7 @@
   .new_font {
     font-size: 25px;
   }
-  @media (max-width: 1200px) {
+  @media (max-width: 1201px) {
     .bingo-h1-board {
       font-size: 18px;
     }
