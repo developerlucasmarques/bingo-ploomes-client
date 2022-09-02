@@ -1,14 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Modal from 'react-modal';
 import { useNavigate, useParams } from 'react-router-dom';
+import swall from 'sweetalert';
+import ingerrogacao from '../../assets/icons/interrogacao2.png';
+import send from '../../assets/icons/send.png';
+import share from '../../assets/icons/share.png';
+import confete from '../../assets/img/confete.gif';
+import cowboy from '../../assets/img/cowboy.png';
+import shareModal from '../../assets/img/shareModal.png';
 import { getRoom } from '../../services/bingoService';
 import { useSocket } from './hooks/useSocket';
-import { sounds } from './howler/howler';
+import { soundErrou, soundTetra } from './howler/howler';
 import './index.css';
-import {
-  modalAddPoints,
-  modalRemovePoints,
-  modalUserMadePoint,
-} from './modals/modals';
+import { modalRemovePoints } from './modals/modals';
 import { DrawnNumberAndKey } from './types/drawn-number-key.type';
 import { GeneratedCard } from './types/generated-card.type';
 import { ReceivedBalls } from './types/received-balls.type';
@@ -17,14 +21,6 @@ import { UserMessage } from './types/user-message.type';
 import { UserSocket } from './types/user-socket';
 import { UserWhithSelf } from './types/user-whith-self.type';
 import { VerifyBingo } from './types/verify-bingo-response.type';
-import Modal from 'react-modal';
-import swall from 'sweetalert';
-import send from '../../assets/icons/send.png';
-import share from '../../assets/icons/share.png';
-import ingerrogacao from '../../assets/icons/interrogacao2.png';
-import shareModal from '../../assets/img/shareModal.png';
-import cowboy from '../../assets/img/cowboy.png';
-import confete from '../../assets/img/confete.gif';
 
 Modal.setAppElement('#root');
 
@@ -33,11 +29,14 @@ const Bingo: React.FC = () => {
     getAllDetails();
   }, []);
 
-  const socket = useSocket('https://bingo-ploomes-server-production.up.railway.app/', {
-    reconnectionAttempts: 10,
-    reconnectionDelay: 5000,
-    autoConnect: false,
-  });
+  const socket = useSocket(
+    'https://bingo-ploomes-server-production.up.railway.app/',
+    {
+      reconnectionAttempts: 10,
+      reconnectionDelay: 5000,
+      autoConnect: false,
+    }
+  );
   let imgs = [send, share, shareModal, ingerrogacao];
   let eachimg = Math.floor(Math.random() * 4);
 
@@ -288,17 +287,17 @@ const Bingo: React.FC = () => {
       if (element.bingo) {
         clearInterval(intervalRef.current);
         setScore(element.score);
-        // modalAddPoints();
         openWinnerModal();
+        soundTetra.play();
         setconfeteState('bingo-confete');
         setTimeout(() => {
           Navigate('/');
           setconfeteState('bingo-confete-f');
-        }, 7000);
+        }, 12000);
       }
       if (!element.bingo) {
         modalRemovePoints();
-        sounds[1].play();
+        soundErrou.play();
       }
     });
 
