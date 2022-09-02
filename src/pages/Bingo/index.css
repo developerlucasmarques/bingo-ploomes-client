@@ -1001,3 +1001,21 @@
     }
   }
 }
+.button-modal-fechar-win {
+  margin-top: 10px;
+  background-color: #78cbf2;
+  color: #fff;
+}
+.button-modal-fechar-win:hover {
+  margin-top: 10px;
+  background-color: #2486b3;
+  color: #fff;
+  cursor: pointer;
+}
+.img-share-modal-cowboy {
+  height: 20rem;
+  width: 30rem;
+}
+.bingo-premio {
+  color: #45454a;
+}

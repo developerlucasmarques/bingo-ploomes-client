@@ -23,6 +23,7 @@ import send from "../../assets/icons/send.png";
 import share from "../../assets/icons/share.png";
 import ingerrogacao from "../../assets/icons/interrogacao2.png";
 import shareModal from "../../assets/img/shareModal.png";
+import cowboy from "../../assets/img/cowboy.png";
 
 Modal.setAppElement("#root");
 
@@ -59,6 +60,8 @@ const Bingo: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [chatPayload, setChatPayload] = useState<UserMessage[]>();
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalWinnerIsOpen, setmodalWinnerIsOpen] = useState(false);
+  const [modalWinnerAllIsOpen, setmodalWinnerAllIsOpen] = useState(false);
   const [copy, setcopy] = useState(true);
   const [buttoncopy, setbuttoncopy] = useState("modal-button-copy-default");
 
@@ -283,7 +286,8 @@ const Bingo: React.FC = () => {
       if (element.bingo) {
         clearInterval(intervalRef.current);
         setScore(element.score);
-        modalAddPoints();
+        // modalAddPoints();
+        openWinnerModal();
         setTimeout(() => {
           Navigate("/");
         }, 7000);
@@ -295,7 +299,8 @@ const Bingo: React.FC = () => {
     });
 
     socket.on("user-made-point", (nickname) => {
-      modalUserMadePoint(nickname.nickname);
+      // modalUserMadePoint(nickname.nickname);
+      openWinnerModalAll();
       clearInterval(intervalRef.current);
       setTimeout(() => {
         Navigate("/");
@@ -346,6 +351,18 @@ const Bingo: React.FC = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
+  const openWinnerModal = () => {
+    setmodalWinnerIsOpen(true);
+  };
+  const closeWinnerModal = () => {
+    setmodalWinnerIsOpen(false);
+  };
+  const openWinnerModalAll = () => {
+    setmodalWinnerAllIsOpen(true);
+  };
+  const closeWinnerModalAll = () => {
+    setmodalWinnerAllIsOpen(false);
+  };
 
   const copybutton = () => {
     navigator.clipboard.writeText(`https://breakingbingo.tk/join/${RoomId}`);
@@ -375,6 +392,9 @@ const Bingo: React.FC = () => {
 
   return (
     <>
+      {/* <button onClick={openWinnerModal}>winner single</button>
+      <button onClick={openWinnerModalAll}>winner all</button> */}
+      {/* modalhelp */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -411,6 +431,65 @@ const Bingo: React.FC = () => {
 
         <div className="modal-close-button">
           <button className="button-modal-fechar" onClick={closeModal}>
+            FECHAR
+          </button>
+        </div>
+      </Modal>
+
+      {/* modalWinnersingle */}
+
+      <Modal
+        isOpen={modalWinnerIsOpen}
+        onRequestClose={closeWinnerModal}
+        contentLabel="example modal"
+        overlayClassName="modal-overlay"
+        className="modal-content"
+      >
+        <div className="container-img-modal">
+          <img
+            src={cowboy}
+            alt="imagem de compartilhamento"
+            className="img-share-modal-cowboy"
+          />
+        </div>
+        <h1 className="text-h1-modal">Parabéns você ganhou o Bingo!!</h1>
+        <h2 className="bingo-premio">Seu premio é : UMA VACA VOADORA!!</h2>
+
+        <div className="modal-close-button">
+          <button
+            className="button-modal-fechar-win"
+            onClick={closeWinnerModal}
+          >
+            FECHAR
+          </button>
+        </div>
+      </Modal>
+
+      {/* modalWinnerAll */}
+
+      <Modal
+        isOpen={modalWinnerAllIsOpen}
+        onRequestClose={closeWinnerModalAll}
+        contentLabel="example modal"
+        overlayClassName="modal-overlay"
+        className="modal-content"
+      >
+        <div className="container-img-modal">
+          <img
+            src={cowboy}
+            alt="imagem de compartilhamento"
+            className="img-share-modal-cowboy"
+          />
+        </div>
+        <h1 className="text-h1-modal">{"nickname"} Ganho o Bingo!!</h1>
+        <h2 className="bingo-premio">O premio dele é : UMA VACA VOADORA!!</h2>
+        <hr />
+
+        <div className="modal-close-button">
+          <button
+            className="button-modal-fechar-win"
+            onClick={closeWinnerModalAll}
+          >
             FECHAR
           </button>
         </div>
