@@ -1,20 +1,20 @@
-import React from "react";
-import "./index.css";
-import bola from "../../assets/img/bola.png";
-import { useState } from "react";
-import { getRoomJoin } from "../../services/bingoService";
-import { useNavigate, useParams } from "react-router-dom";
-import swall from "sweetalert";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import swall from 'sweetalert';
+import bola from '../../assets/img/bola.png';
+import { getRoomJoin } from '../../services/bingoService';
+import './index.css';
 
-import { authRoomService } from "../../services/bingoService";
+import { authRoomService } from '../../services/bingoService';
 
 const join = () => {
   let { roomId } = useParams();
 
   const [values, setValues] = useState({
-    nickname: "",
+    nickname: '',
     roomId: roomId,
   });
+  let roomName = '';
 
   let navigate = useNavigate();
 
@@ -27,18 +27,17 @@ const join = () => {
 
   const joinsession = async (event: any) => {
     event.preventDefault();
-    if (values.nickname == "") {
+    if (values.nickname == '') {
       swall({
-        icon: "error",
-        title: "Você nao pode entar na sala sem um nick ",
+        icon: 'error',
+        title: 'Você nao pode entar na sala sem um nick ',
         timer: 3000,
       });
       return;
     } else {
       const response = await getRoomJoin.singleRoomJoin(values);
       const userid = response.data.user.id;
-
-      console.log("essa e a response", response);
+      roomName = response.data.room.name;
 
       const objtoken = {
         userId: userid,
@@ -47,12 +46,12 @@ const join = () => {
 
       const tokenuser = responsetoken.data.token;
 
-      localStorage.setItem("jwtToken", tokenuser);
+      localStorage.setItem('jwtToken', tokenuser);
 
       swall({
-        icon: "success",
-        title: "você entrou na sala",
-        timer: 1000,
+        icon: 'success',
+        title: `Você entrou na sala ${roomName}`,
+        timer: 4000,
       });
       navigate(`/Bingo/${roomId}`);
     }
@@ -63,7 +62,7 @@ const join = () => {
       <body>
         <div className="all">
           <h1>
-          <strong id="logo1"> Breaking bIngo </strong>
+            <strong id="logo1"> Breaking bIngo </strong>
           </h1>
           <span className="bola">
             <img src={bola} alt="bola" />
