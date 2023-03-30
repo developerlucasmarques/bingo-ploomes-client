@@ -30,7 +30,7 @@ const Bingo: React.FC = () => {
   }, []);
 
   const socket = useSocket(
-    'https://bingo-ploomes-server-production.up.railway.app/',
+    'https://bingo-ploomes-server.onrender.com',
     {
       reconnectionAttempts: 10,
       reconnectionDelay: 5000,
